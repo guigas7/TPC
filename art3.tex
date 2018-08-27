@@ -1,7 +1,127 @@
 % !TEX encoding = UTF-8 Unicode
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Journal Article
+% LaTeX Template
+% Version 1.4 (15/5/16)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com) with extensive modifications by
+% Vel (vel@LaTeXTemplates.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+\documentclass[oneside, 11 pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[portuguese]{babel}
+\usepackage{blindtext} % Package to generate dummy text throughout this template 
+\usepackage{comment}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\usepackage{hyperref} % For hyperlinks in the PDF
+
+\usepackage{inconsolata}
+\lstset{
+	language=bash, %% Troque para PHP, C, Java, etc... bash é o padrão
+	basicstyle=\ttfamily\small,
+	numberstyle=\footnotesize,
+	backgroundcolor=\color{gray!10},
+	frame=single,
+	tabsize=2,
+	rulecolor=\color{black!30},
+	escapeinside={\%*}{*)},
+	breaklines=true,
+	breakatwhitespace=true,
+	framextopmargin=2pt,
+	framexbottommargin=2pt,
+	inputencoding=utf8,
+	extendedchars=true,
+	literate={á}{{\'a}}1 {ã}{{\~a}}1 {é}{{\'e}}1 {í}{{\'i}}1,
+}
+\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry} % Document margins
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
+\usepackage{booktabs} % Horizontal rules in tables
+
+\usepackage{lettrine} % The lettrine is the first enlarged letter at the beginning of the text
+
+\usepackage{enumitem} % Customized lists
+\setlist[itemize]{noitemsep} % Make itemize lists more compact
+
+\usepackage{titlesec} % Allows customization of titles
+%\renewcommand\thesection{\Roman{section}} % Roman numerals for the sections
+\renewcommand\thesubsection{\roman{subsection}} % roman numerals for subsections
+\titleformat{\section}[block]{\large\scshape\centering}{\thesection.}{1em}{} % Change the look of the section titles
+\titleformat{\subsection}[block]{\large}{\thesubsection.}{1em}{} % Change the look of the section titles
+
+\usepackage{fancyhdr} % Headers and footers
+\pagestyle{fancy} % All pages have headers and footers
+\fancyhead{} % Blank out the default header
+\fancyhead[C]{Introdução ao Bash - Comandos e Scripts} % Custom header text
+
+\usepackage{titling} % Customizing the title section
+
+\usepackage{graphicx}
+\usepackage{float}
+\renewcommand{\arraystretch}{1.5}
+\usepackage{multirow}
+\setlength{\parindent}{18pt}
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\setlength{\droptitle}{-4\baselineskip} % Move the title up
+
+\pretitle{\begin{center}\Huge\bfseries} % Article title formatting
+	\posttitle{\end{center}} % Article title closing formatting
+\title{Introdução ao Bash} % Article title
+\author{%
+	\textsc{Guilherme Bittencourt Bueno da Silva} \\[1ex] % Your name
+	\normalsize Universidade Federal do Paraná \\ % Your institution
+	\normalsize {gbbs14@inf.ufpr.br} % Your email address
+	%\and % Uncomment if 2 authors are required, duplicate these 4 lines if more
+	%\textsc{Jane Smith}\thanks{Corresponding author} \\[1ex] % Second author's name
+	%\normalsize University of Utah \\ % Second author's institution
+	%\normalsize \href{mailto:jane@smith.com}{jane@smith.com} % Second author's email address
+}
+\date{\today} % Leave empty to omit a date
+\renewcommand{\maketitlehookd}{%
 	
-	 om o avanço da tecnologia, a maneira de interagir com um computador mudou tanto que muitos usuários não precisam saber o que é um shell, a maioria dos usuários, nem precisam utilizar um shell.
-	Considerando que há 30 anos atrás, os usuários só tinham acesso ao mainframe através de uma estação com teclado e monitor para utilizar os comandos do shell, é possível dizer que hoje, computador é algo completamente diferente. Porém, hoje em dia, ainda usamos os mesmos termos para definir partes do sistema que hoje funcionam de maneira diferente. Então antes de apresentar a história do Shell, é bom diferenciar conceitos que são facilmente confundidos.
+	%\begin{abstract}
+	%\noindent \blindtext % Dummy abstract text - replace \blindtext with your abstract text
+	%\end{abstract}
+}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+	
+	% Print the title
+	\maketitle
+	%----------------------------------------------------------------------------------------
+	%	ARTICLE CONTENTS
+	%----------------------------------------------------------------------------------------
+	\section{Resumo}
+	 O Shell é uma interface eficiente de acesso aos serviços do kernel. Shells mais recentes permitem operações além da simples interpretação de comandos e facilitam o uso com funcionalidades que automatizam tarefas repetitivas, porém, o custo dessa facilidade é uma interface pouco intuitiva, por isso, esse material explica brevemente a história e a estrutura do shell e apresenta as funcionalidades do Bash, o Shell padrão na maioria das distribuições Linux.
+	
+	\section{Introdução}
+	Computadores são imprescindíveis em  diversas áreas de aplicação, possuíndo formas específicas para cada tipo de aplicação. Para que os computadores sejam amplamente acessíveis, eles possuem uma quantidade imensa de interfaces para que um usuário sem nenhum conhecimento seja capaz de utilizar um computador. Uma interface, em ciência da computação, é a fronteira que define a forma de comunicação entre duas entidades. Ela pode ser entendida como uma abstração que estabelece a forma de interação da entidade com o mundo exterior, através da separação dos métodos de comunicação externa dos detalhes internos da operação \cite{interface}. Existem interfaces em vários níveis, como interfaces gráficas para que usuários básicos possam selecionar aplicações, ou interfaces das próprias aplicações que permitem que o usuário faça uso do computador através de abstrações.
+	
+	O Shell é uma interface entre o usuário e o sistema operacional (SO), usada para simplificar o uso desse, escondendo detalhes específicos de cada versão do SO. Diferente das interfaces citadas acima, o Shell é direcionado a um público menos abrangente e não possui um sistema de apontar e clicar (que é mais lento e repetitivo que uma interface textual). A intenção dessa interface não é de facilitar o aprendizado para usuários iniciantes, e sim de facilitar e otimizar as tarefas de usuários que utilizam constantemente o sistema. Por isso, é necessário (ou, ao menos, muito importante) o uso de um material como este para aprender a usar o Shell da maneira correta, eliminando a redigitação e aproveitando ao máximo os recursos oferecidos.
+	
+	Quando foi criado, o Shell era a interface padrão de acesso ao computador, e nessa época, os SOs apenas tratavam do gerenciamento de processos e da memória, sem incluir aplicações e interfaces adicionais, então, para o usuário (ou, para os operadores do mainframe) escolher um bom Shell era tão importante quanto escolher um SO.
+	
+	Com o avanço da tecnologia, a maneira de interagir com um computador mudou tanto que muitos usuários não precisam saber o que é um shell, a maioria dos usuários, nem precisam utilizar um shell.	Considerando que há 30 anos atrás, os usuários só tinham acesso ao mainframe através de uma estação com teclado e monitor para utilizar os comandos do shell, é possível dizer que hoje, computador é algo completamente diferente. Porém, hoje em dia, ainda usamos os mesmos termos para definir partes do sistema que hoje funcionam de maneira diferente. Então antes de apresentar a história do Shell, é bom diferenciar conceitos que são facilmente confundidos.
 	
 	\section{Terminal vs Console vs Shell}
 	
@@ -19,10 +139,10 @@
 	Shell possui esse nome pois ele funciona como uma casca separando o kernel do exterior. Sua função é servir de interface para acessar as funções do sistema operacional, tendo a vantagem de funcionar da mesma maneira em qualquer sistema operacional baseado em unix, escondendo detalhes específicos de cada SO.
 	\begin{figure}[h]
 		\includegraphics[width=\linewidth]{shell_struct1.png}
-		\caption{Relação entre Shell, Kernel e usuário}
+		\caption{A figura detalha como o Shell faz a interação entre o Usuário e o Kernel.}
 		\label{fig:shellstruct}
 	\end{figure}\\
-	Portanto, os comandos que você insere no terminal, são comandos do Shell que você está utilizando, que, na maioria dos sistemas linux atualmente, é o Bash. Diferentes Shells possuem funcionalidades diferentes, possivelmente implementadas com comandos diferentes, essas funcionalidades incluem:
+	Portanto, os comandos inseridos no terminal são programas (arquivos executáveis) executados pelo Shell em uso, que, na maioria dos sistemas linux atualmente, é o Bash. Diferentes Shells possuem funcionalidades diferentes, essas funcionalidades incluem:
 	\begin{itemize}
 		\item Executar comandos.
 		\item Manipulação de diretórios.
@@ -35,34 +155,28 @@
 	E muitas outras funcionalidades para facilitar, agilizar e automatizar as atividades realizadas.\\
 	Essas são algumas funcionalidades que estamos acostumados a utilizar hoje, mas nas primeiras versões de Shell, muitas delas não existiam.
 	
-	\section{Unix, GNU, Linux e Shell}
-	Em 1971, Ken Thompson desenvolveu o primeiro UNIX Shell, chamado de V6 Shell (foi criado no Unix versão 6), e suas funcionalidades muito básicas, ele permitia pipes e redirecionamentos, mas ele estava mais próximo de um interpretador de comandos, ao invés de scripts\par
-	Dessa necessidade surgem novos Shells, com novas funcionalidades. Em 1977 foi criado o Bourne Shell, com dois objetivos: Servir como um interpretador de comandos e rodar scripts. Além disso, o Bourne Shell acrescentou ferramentas de controle (até então "if" existia como uma extensão, mas não era implementado diretamente no Shell V6), loops e variáveis, facilitando o uso de comandos e a criação de scripts. A partir disso surgem muitos outros Shells, e todos seguiram essas funcionalidades. Os principais foram: C-Shell, com o objetivo de deixar os scripts mais parecidos com a linguagem C. Korn Shell, que adicionou novas funcionalidades ao mesmo tempo que manteve forte compatibilidade com o Bourne Shell, e por fim, o Bourne Again Shell (Bash), que além de manter a compatibilidade com o Bourne Shell, também implementou as funcionalidades do C-Shell e Korn shell, ele também continuou a evoluir com o tempo, porém, um dos grandes facilitadores para o Bash ser o mais usado dos 3 é o fato de ele ser um projeto Open Source do GNU. \par
-	O projeto GNU não se trata apenas de criar uma versão open source do UNIX, mas sim de criar um ambiente onde sistemas abertos respeitam especificações e padrões, de modo que os usuários tivessem a liberdade para escolher, usar, distribuir e modificar software, e para isso é necessário que todo o sofwate: Sistema operacional, drivers, programas fossem software livre. Para isso a criação do Bash foi necessária, e com o sucesso do \href{https://www.gnu.org/gnu/manifesto.pt-br.html}{manifesto GNU}, o Bash foi o Shell mais difundido.
-	\section{Conclusão}
-	A maior evolução de qualquer Unix Shell foi a ideia de transformar o shell em uma ferramenta para Scripts, e não apenas um interpretador de comandos, essa mudança surgiu no Bourne Shell, e é bem provável que, qualquer que seja o Shell mais comum no futuro, continue sendo algum derivado do Bourne Shell, até que uma nova ideia que mude a maneira que usamos o Shell seja inventada.\par
-
-
-
-
-
-
-	\section{Introdução2 }
+	\section{Unix, GNU e Shell}
+	Em 1971, Ken Thompson desenvolveu o primeiro UNIX Shell, chamado de V6 Shell (foi criado no Unix versão 6), com funcionalidades muito básicas, ele permitia pipes e redirecionamentos, mas era um interpretador de comandos, ao invés de scripts.
+	
+	Apenas executar comandos e redirecionamento de entrada e saída não eram o suficiente para a necessidade dos usuários, além de que a interface não facilitava atividades repetitivas. Dessa necessidade surgem novos Shells, com novas funcionalidades. Em 1977 foi criado o Bourne Shell, com dois objetivos: Servir como um interpretador de comandos e executar scripts. Além disso, o Bourne Shell acrescentou ferramentas de controle (até então "if" existia como uma extensão, mas não era implementado diretamente no Shell V6), loops e variáveis, facilitando o uso de comandos e a criação de scripts. A partir disso surgem muitos outros Shells, e todos seguiram essas funcionalidades. Os principais foram: C-Shell, com o objetivo de deixar os scripts mais parecidos com a linguagem C. Korn Shell, que adicionou novas funcionalidades ao mesmo tempo que manteve forte compatibilidade com o Bourne Shell, e por fim, o Bourne Again Shell (Bash), que além de manter a compatibilidade com o Bourne Shell, também implementou as funcionalidades do C-Shell e Korn shell, ele também continuou a evoluir com o tempo, porém, um dos grandes facilitadores para o Bash ser o mais usado dos 3 é o fato de ele ser um projeto Open Source do GNU.
+	
+	O projeto GNU (GNU is Not Unix) não se trata apenas de criar uma versão open source do UNIX, mas sim de criar um ambiente onde sistemas abertos respeitam especificações e padrões, de modo que os usuários tivessem a liberdade para escolher, usar, distribuir e modificar software, e para isso é necessário que todo o sofware, incluíndo SO, drivers e programas fossem software livre. Para isso a criação do Bash foi necessária, e com o sucesso do Manifesto GNU \cite{gnu}, o Bash foi o Shell mais difundido.
+	
+	\section{Z shell}	
+	Ainda existem Shells sendo criado até hoje, geralmente adicionando funcionalidades para facilitar o uso das ferramentas já existentes no Bash, por exemplo, o Z shell (zsh) permite que usuário selecione o resultado das expansões de nomes de arquivos antes de executar o comando, além disso, quando o usuário digita parte de um caminho da árvore de diretórios, o zsh deixa visível os arquivos e diretórios visíveis à partir do caminho digitado, assim, unindo a intuitividade da interface gráfica com a agilidade da interface textual. 
+	
+	A maior evolução de qualquer Unix Shell foi a ideia de transformar o shell em uma ferramenta para Scripts, e não apenas um interpretador de comandos, essa mudança surgiu no Bourne Shell, e é bem provável que, qualquer que seja o Shell mais comum no futuro, continue sendo algum derivado do Bourne Shell.
+	
+	\section{Comandos em Bash}
 	Se você já precisou usar comandos do Bash para buscar partes específicas de um arquivo de texto, você sabe que muitas vezes é necessário usar mais de um comando, e simplesmente não é prático usar vários arquivos intermediários para chegar no seu resultado final. O próximo parágrafo desse material explica como usar qualquer comando, porém, o Bash não se tornou o Shell mais utilizado por ser um simples interpretador de comandos. As próximas seções explicam o sistema de arquivos e diretórios e maneiras de navegar entre eles, além do uso de pipelines, expansões e ferramentas de entrada e saída para usar o Bash como um interpretador de scripts, e não apenas de comandos separados.
 	
-	\section{Estrutura dos comandos do Bash}
-	Uma linha de comando consiste de uma ou mais palavras, separadas por espaços. A primeira palavra é o próprio comando, seguido de um ou mais parâmetros(alguns comandos não exigem nenhum parâmetro). Um tipo comum de parâmetros são as opções, geralmente na forma de um traço seguido de uma letra. Algumas opções têm seus próprios parâmetros. Para exemplificar, vamos usar um comando que ordena linhas, o "sort". Suponha que queremos ordenar as linhas de um arquivo chamado lista.txt e queremos uma ordenação numérica, para isso usamos o seguinte comando:
-	\begin{lstlisting}
-	sort -n lista.txt
-	\end{lstlisting}
+	\section{Estrutura do Bash}
+	Uma linha de comando consiste de uma ou mais palavras, separadas por espaços. A primeira palavra é o próprio comando, seguido de um ou mais parâmetros(alguns comandos não exigem nenhum parâmetro). Um tipo comum de parâmetros são as opções, geralmente na forma de um traço seguido de uma letra. Algumas opções têm seus próprios parâmetros. Para exemplificar, vamos usar um comando que ordena linhas, o "sort". Suponha que queremos ordenar as linhas de um arquivo chamado lista.txt e queremos uma ordenação numérica, para isso usamos o seguinte comando: \texttt{\textbf{\textit{sort -n lista.txt}}}.
 	Neste caso, "sort" é o comando, "-n" é a opção que indica ordenação numérica e o "lista.txt" é o parâmetro que seleciona qual arquivo deve ser ordenado.
-	Para saber quais opções e quantos parâmetros um comando pode ter, utilize o comando man, que também detalha o funcionamento do comando, então, em caso de dúvidas sobre como usar algum comando, leia a man page. basta digitar:
-	\begin{lstlisting}
-	man comando # troque "comando" pelo comando a ser  consultado
-	\end{lstlisting}
-	Neste caso, "man" é o comando e "comando" é o parâmetro para escolher qual man page deve ser consultada. Além disso, o conteúdo da linha à partir do '\#' é lido como comentário.
+	Para saber quais opções e quantos parâmetros um comando pode ter, utilize o comando man, que também detalha o funcionamento do comando, então, em caso de dúvidas sobre como usar algum comando, leia a man page. basta digitar: \texttt{\textbf{\textit{man comando}}}, trocando "comando" pelo comando a ser consultado.
+	Neste caso, "man" é o comando e "comando" é o parâmetro para escolher qual man page deve ser consultada.
 	
-	\section{Arquivos e Diretórios}
+	\subsection{Arquivos e Diretórios}
 	Em sistema UNIX, o conceito de arquivo é bem amplo, não há nenhuma estrutura definida, o significado da sequência de bytes armazenada em um arquivo, é dependente de qual aplicação o utiliza. O nome do arquivo também não é definido. Todo tipo de padrão como headers, conteúdo e extensões(".txt, .mp3") são maneiras de organizar os arquivos. É possível separar os tipos de arquivos em 3:
 	\begin{itemize}
 		\item Arquivo de texto, que contém caracteres legíveis.
@@ -100,14 +214,18 @@
 			mkdir & Cria um novo diretório \\
 			\hline
 		\end{tabular}
-		\caption{Comandos de navegação}
+		\caption{A tabela explica o funcionamento dos comandos básicos de navegação}
 		\label{table:1}
 	\end{table}
 	O comando ls pode ser usado no diretório atual ao omitir o parâmetro de localização, existem opcionais para mostrar metadados e incluir arquivos ocultos (arquivo cujo nome começa com ponto (.)). O comando cd aceita tanto caminho absoluto quando caminho relativo. Ao omitir o parâmetro de localização o diretório atual será a home. Mais detalhes sobre as opções e parâmetros dos comandos podem ser encontrados nas man pages. O mesmo vale para os comandos apresentados até o fim desse material. É indicado que o leitor teste o que é apresentado nesse material, lendo as man pages e testando opções dos comandos.
 	
 	Dica: Utilize o auto-complete para evitar digitação desnecessária! TAB para completar quando há apenas uma opção possível e TAB duas vezes para mostras as opções possíveis, tanto para completar comandos quanto para nomes de arquivos e diretórios existentes e acessíveis no caminho digitado(na verdade, os comandos também são arquivos, os comandos do Bash ficam no diretório /bin).
-	\section{Expansão}
-	A seção anterior detalha como navegar na árvore de diretórios, porém, muitas vezes não mantemos um mapa mental completo da árvore e nesse caso a navegação, mesmo com auto-complete ainda é muito precária. Esse é um dos usos dos caracteres coringas, ou, "meta-caracteres".
+	
+	\section{Bash para scripts} \label{scripts}
+	
+	A seção anterior detalha como navegar na árvore de diretórios, porém, muitas vezes não mantemos um mapa mental completo da árvore e nesse caso a navegação, mesmo com auto-complete ainda é muito precária para escrever comandos para vários arquivos. Para facilitar esse trabalho, usa-se caracteres coringas, ou, "meta-caracteres".
+		
+	\subsection{Expansão}
 	
 	O asterísco (*) substitui qualquer sequência de caracteres e o ponto de interrogação (?) substitui um único caractere. Então, suponha que em seu diretório atual, existem os seguintes arquivos: b16c8a16.txt, b4c4a32.txt e b128c2a8.txt, suponha também uma infinidade de arquivos com nomes variados de modo que ls não é a forma mais rápida de identificar arquivos. com o asterísco, é possível selecionar um arquivo sabendo apenas parte de seu nome, por exemplo, o comando "ls b16*" retornaria apenas o arquivo b16c4a32.txt (caso nenhum outro arquivo do diretório corrente comece com b16). o comando "ls b1?c" retorna apenas o arquivo b16c8a16.txt. Usando um "*" no lugar do "?", o comando retornaria tanto o arquivo "b16c8a16.txt" quanto o "b128c2a8.txt".
 	
@@ -135,10 +253,9 @@
 			[abc-] & 'a', 'b', 'c', ou '-' \\
 			\hline
 		\end{tabular}
-		\caption{Expansão de caminhos}
+		\caption{A tabela descreve o resultado de alguns exemplos de expansão}
 		\label{table:2}
 	\end{table}
-	
 	
 	Expansão de caminhos é o primeiro passo para fazer scripts em Bash, com eles é possível realizar ações para várias entradas, de uma só vez. Porém, nem todo parâmetro é um nome de arquivo ou diretório, para isso existe a expansão de chaves ('\{' e '\}'), que permite a expansão para um conjunto de strings, separadas por ','. Apesar de funcionar de maneira parecida, nesse tipo de expansão, não há a necessidade de corresponder com nomes de arquivos existentes. A tabela \ref{table:3} contém exemplos de uso da expansão de chaves:
 	
@@ -160,7 +277,7 @@
 			echo turma\{A..G..2\} & turmaA turmaC turmaE turma G\\
 			\hline
 		\end{tabular}
-		\caption{Expansão de chaves}
+		\caption{A coluna direita descreve o resultado do comando da coluna esquerda}
 		\label{table:3}
 	\end{table}
 	Se necessário, consulte as man pages dos comandos echo e touch. Com a expansão de chaves é possível expandir caminhos que não existem, então dependendo do caso você pode obter respostas de erro do comando utilizado.
@@ -168,8 +285,10 @@
 	As mensagens de erro dos comandos do Bash são bem intuitivas, antes de ir ao google, leia a mensagem de erro, e se necessário a man page. Para os casos comuns, isso basta.
 	
 	Em caso de dúvidas nos resultados das expansões, use o comando echo para conferir se a expansão gera o resultado esperado, antes de usar a expansão em comandos que podem estragar ou mover arquivos importantes. Lembre-se da diferença entre a expansão de chaves da expanção de colchetes.
-	\section{Redirecionamento de Entrada e Saída}
-	Os redirecionamentos são o próximo passo da evolução de comandos para scripts. As expansões são muito úteis, mas nem tudo pode ser resolvido com apenas um comando. Uma ótima abstração para entender a funcionalidade do redirecionamento no Bash é pensar nos comandos como filtros. Um comando recebe uma entrada e produz uma saída, até esse ponto do material a entrada era sempre lida pelo teclado (stdin - Standard Input) e imprimidas na tela (stdout - Standard Output), porém, se é possível usar comandos como filtros, podemos redirecionar a saída de um comando para a entrada de outro, e assim, combinar vários comandos para obter a saída desejada, com uma estrutura parecida com essa:
+	
+	\subsection{Redirecionamento de Entrada e Saída}
+	
+	Os redirecionamentos são o próximo passo da evolução de comandos para scripts. As expansões são muito úteis, mas nem tudo pode ser resolvido com apenas um comando. Uma ótima abstração para entender a funcionalidade do redirecionamento no Bash é pensar nos comandos como filtros. Um comando recebe uma entrada e produz uma saída, até esse ponto do material a entrada era sempre lida pelo teclado (stdin - Standard Input) e imprimidas na tela (stdout - Standard Output), porém, se é possível usar comandos como filtros, podemos redirecionar a saída de um comando para a entrada de outro, e assim, combinar vários comandos para obter a saída desejada, com uma estrutura parecida com esta:
 	
 	\begin{lstlisting}
 	entrada -> Filtro1 -> Filtro2 -> ... -> FiltroN -> saída
@@ -213,7 +332,7 @@
 		\end{lstlisting}
 		\item Copie os arquivos do diretório alunos para o diretório correspondente de acordo com a tabela \ref{table:4}:
 		
-			\begin{table}[!ht]
+		\begin{table}[!ht]
 			\centering
 			\begin{tabular}{ | c | c | c | } 
 				\hline
@@ -232,28 +351,27 @@
 				3.6 & Alunos de BCC, IBM e TADS com nota de 7 a 10 & turmaAP \\
 				\hline
 			\end{tabular}
-			\caption{Relação de arquivos e destinos}
+			\caption{Relação do destino dos arquivos para o exercício 3}
 			\label{table:4}
 		\end{table}
-	Resposta:
-	\begin{lstlisting}
-	cp alunos/aluBCCnota[!A-Z]* turmaA/
-	cp alunos/aluIBMnota[!A-Z]* turmaB/
-	cp alunos/aluTADSnota[!A-Z]* turmaC/
-	cp alunos/alu{BCC,IBM,TADS}nota[0-3] turmaREP/
-	cp alunos/alu{BCC,IBM,TADS}nota[4-6] turmaFN/
-	cp alunos/alu{BCC,IBM,TADS}nota{7..10} turmaAP/
-	\end{lstlisting}
+		Resposta:
+		\begin{lstlisting}
+		cp alunos/aluBCCnota[!A-Z]* turmaA/
+		cp alunos/aluIBMnota[!A-Z]* turmaB/
+		cp alunos/aluTADSnota[!A-Z]* turmaC/
+		cp alunos/alu{BCC,IBM,TADS}nota[0-3] turmaREP/
+		cp alunos/alu{BCC,IBM,TADS}nota[4-6] turmaFN/
+		cp alunos/alu{BCC,IBM,TADS}nota{7..10} turmaAP/
+		\end{lstlisting}
 	\end{enumerate}
-
+	
 	\section{Conclusão}
-As ferramentas do Bash apresentadas nesse material, juntamente com estruturas de controle (if e for) e variáveis, permitem que sejam criados scripts que interagem dinamicamente com os dados sem excesso de digitação e trabalho por parte do usuário.
+	As ferramentas do Bash apresentadas nesse material, juntamente com estruturas de controle (if e for) e variáveis, permitem que sejam criados scripts que interagem dinamicamente com os dados sem excesso de digitação e trabalho por parte do usuário. Para que esse conteúdo seja entendido pelo leitor é ideal que os conhecimentos sejam aplicados na prática. Para isso, são indicados os materiais do professor Roberto Hexsel \cite{roberto1, roberto2}, além de serem bem explicativos, possui vários exemplos, explicam novos comandos e possuem alguns exercícios para praticar.
+	
+\bibliographystyle{apalike}
+\bibliography{artbib}
 
-@online{Interf,
-  author = {Wiḱipédia},
-  title = {Interface (ciência da computação)},
-  year = 2018,
-  url = {https://pt.wikipedia.org/wiki/Interface_(ciência_da_computação)},
-  urldate = {2018-08-17}
-}
-
+%----------------------------------------------------------------------------------------
+%	REFERENCE LIST
+%----------------------------------------------------------------------------------------
+\end{document}
