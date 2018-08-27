@@ -1,0 +1,21 @@
+\babel@toc {portuguese}{}
+\contentsline {section}{Resumo}{2}{Doc-Start}
+\contentsline {section}{Introdu\IeC {\c c}\IeC {\~a}o}{2}{Doc-Start}
+\contentsline {part}{I\hspace {1em}Introdu\IeC {\c c}\IeC {\~a}o ao Shell}{3}{part.1}
+\contentsline {section}{Terminal vs Console vs Shell}{3}{section*.1}
+\contentsline {subsection}{Terminal}{3}{section*.1}
+\contentsline {subsection}{Console}{4}{figure.caption.2}
+\contentsline {subsection}{Shell}{4}{figure.caption.2}
+\contentsline {section}{Unix, GNU e Shell}{5}{figure.caption.3}
+\contentsline {section}{Z shell}{5}{figure.caption.3}
+\contentsline {section}{Conclus\IeC {\~a}o}{5}{figure.caption.3}
+\contentsline {part}{II\hspace {1em}Bash B\IeC {\'a}sico}{6}{part.2}
+\contentsline {section}{Comandos em Bash}{6}{section*.4}
+\contentsline {section}{Estrutura do Bash}{6}{section*.4}
+\contentsline {subsection}{Arquivos e Diret\IeC {\'o}rios}{6}{section*.5}
+\contentsline {subsection}{Navega\IeC {\c c}\IeC {\~a}o}{7}{section*.5}
+\contentsline {section}{Bash para scripts}{8}{table.caption.6}
+\contentsline {subsection}{Expans\IeC {\~a}o}{8}{section*.7}
+\contentsline {subsection}{Redirecionamento de Entrada e Sa\IeC {\'\i }da}{10}{table.caption.9}
+\contentsline {section}{Exerc\IeC {\'\i }cio}{10}{lstnumber.-6.1}
+\contentsline {section}{Conclus\IeC {\~a}o}{11}{lstnumber.-9.6}

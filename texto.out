@@ -1,0 +1,20 @@
+\BOOKMARK [1][-]{Doc-Start}{Resumo}{}% 1
+\BOOKMARK [1][-]{Doc-Start}{Introdu\347\343o}{}% 2
+\BOOKMARK [0][-]{part.1}{I Introdu\347\343o ao Shell}{}% 3
+\BOOKMARK [1][-]{section*.1}{Terminal vs Console vs Shell}{part.1}% 4
+\BOOKMARK [2][-]{section*.1}{Terminal}{part.1}% 5
+\BOOKMARK [2][-]{figure.caption.2}{Console}{part.1}% 6
+\BOOKMARK [2][-]{figure.caption.2}{Shell}{part.1}% 7
+\BOOKMARK [1][-]{figure.caption.3}{Unix, GNU e Shell}{part.1}% 8
+\BOOKMARK [1][-]{figure.caption.3}{Z shell}{part.1}% 9
+\BOOKMARK [1][-]{figure.caption.3}{Conclus\343o}{part.1}% 10
+\BOOKMARK [0][-]{part.2}{II Bash B\341sico}{}% 11
+\BOOKMARK [1][-]{section*.4}{Comandos em Bash}{part.2}% 12
+\BOOKMARK [1][-]{section*.4}{Estrutura do Bash}{part.2}% 13
+\BOOKMARK [2][-]{section*.5}{Arquivos e Diret\363rios}{section*.4}% 14
+\BOOKMARK [2][-]{section*.5}{Navega\347\343o}{section*.4}% 15
+\BOOKMARK [1][-]{table.caption.6}{Bash para scripts}{part.2}% 16
+\BOOKMARK [2][-]{section*.7}{Expans\343o}{table.caption.6}% 17
+\BOOKMARK [2][-]{table.caption.9}{Redirecionamento de Entrada e Sa\355da}{table.caption.6}% 18
+\BOOKMARK [1][-]{lstnumber.-6.1}{Exerc\355cio}{part.2}% 19
+\BOOKMARK [1][-]{lstnumber.-9.6}{Conclus\343o}{part.2}% 20
