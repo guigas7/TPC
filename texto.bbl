@@ -1,28 +1,15 @@
 \begin{thebibliography}{}
 
-\bibitem[FSF, 2018]{gnu}
-FSF (2018).
-\newblock Manifesto gnu.
-\newblock \url{https://www.gnu.org/gnu/manifesto.pt-br.html}.
-\newblock Acessado em 18-08-2018.
+\bibitem[Hexsel, 2018]{roberto3}
+Hexsel, R.~A. (2018).
+\newblock Como computeiros ganham mais tempo com bash.
+\newblock \url{http://www.inf.ufpr.br/roberto/ci064/labBash-2.html}.
+\newblock Acessado em 27-08-2018.
 
-\bibitem[Hexsel, 2018a]{roberto2}
-Hexsel, R.~A. (2018a).
-\newblock Como computeiros ganham tempo com bash.
-\newblock \url{http://www.inf.ufpr.br/roberto/ci064/labBash-1.html}.
-\newblock Acessado em 18-08-2018.
-
-\bibitem[Hexsel, 2018b]{roberto1}
-Hexsel, R.~A. (2018b).
-\newblock Unix para computeiros.
-\newblock \url{http://www.inf.ufpr.br/roberto/ci064/labUnix.html}.
-\newblock Acessado em 18-08-2018.
-
-\bibitem[Wikipédia, 2018]{interface}
+\bibitem[Wikipédia, 2018]{regex}
 Wikipédia (2018).
-\newblock Interface (ciência da computação).
-\newblock
-  \url{https://pt.wikipedia.org/wiki/Interface_(ci%C3%AAncia_da_computa%C3%A7%C3%A3o)}.
-\newblock Acessado em 18-08-2018.
+\newblock Expressão regular.
+\newblock \url{https://pt.wikipedia.org/wiki/Express%C3%A3o_regular}.
+\newblock Acessado em 27-08-2018.
 
 \end{thebibliography}
