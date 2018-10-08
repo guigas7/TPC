@@ -66,7 +66,7 @@
 \usepackage{fancyhdr} % Headers and footers
 \pagestyle{fancy} % All pages have headers and footers
 \fancyhead{} % Blank out the default header
-\fancyhead[C]{Tutorial do Bash} % Custom header text
+\fancyhead[C]{Segundo Exercício prático de Bash} % Custom header text
 
 \usepackage{titling} % Customizing the title section
 
@@ -92,7 +92,7 @@
 
 \pretitle{\begin{center}\Huge\bfseries} % Article title formatting
 	\posttitle{\end{center}} % Article title closing formatting
-\title{Tutorial do Bash} % Article title
+\title{Segundo Exercício prático de Bash} % Article title
 \author{%
 	\textsc{Guilherme Bittencourt Bueno da Silva} \\[1ex] % Your name
 	\normalsize Universidade Federal do Paraná \\ % Your institution
@@ -117,368 +117,118 @@
 	% Print the title
 	\maketitle
 	
-	\tableofcontents
 	%----------------------------------------------------------------------------------------
 	%	ARTICLE CONTENTS
 	%----------------------------------------------------------------------------------------
+	\section{Resumo}
+	O exercício a seguir propõe ao leitor encontrar uma solução automatizada para extrair dados de arquivos de vários diretórios usando apenas o bash (e auxiliares, invocados pelo bash)
+	pelo bash). A solução inclui a pesquisa por ferramentas que possam ser de auxílio na
+	solução, como o sort, cut, wc, entre outros (para usar o bash da melhor forma é preciso
+	conhecer, ou ser capaz de pesquisar por, ferramentas que auxiliam as soluções).
+	
 	\section{Introdução}
-	Computadores são imprescindíveis em diversas áreas de aplicação, possuíndo formas específicas
-	para cada tipo de aplicação. Para que os computadores sejam amplamente acessíveis,
-	eles possuem uma quantidade imensa de interfaces para que um usuário sem nenhum conhecimento
-	seja capaz de utilizar um computador. Uma interface, em ciência da computação, é
-	a fronteira que define a forma de comunicação entre duas entidades. Ela pode ser entendida
-	como uma abstração que estabelece a forma de interação da entidade com o mundo exterior,
-	através da separação dos métodos de comunicação externa dos detalhes internos da operação
-	\cite{interface}. Existem interfaces em vários níveis, como interfaces gráficas para
-	que usuários básicos possam selecionar aplicações, ou interfaces das próprias aplicações que
-	permitem que o usuário faça uso do computador através de abstrações.
-	O Shell é uma interface entre o usuário e o sistema operacional (SO), usada para simplificar
-	o uso desse, escondendo detalhes específicos de cada versão do SO. Diferente das
-	interfaces citadas acima, o Shell é direcionado a um público menos abrangente e não possui
-	um sistema de apontar e clicar (que é mais lento e repetitivo que uma interface textual). A
-	intenção dessa interface não é de facilitar o aprendizado para usuários iniciantes, e sim de
-	facilitar e otimizar as tarefas de usuários que utilizam constantemente o sistema. Por isso, é
-	necessário (ou, ao menos, muito importante) o uso de um material como este para aprender
-	a usar o Shell da maneira correta, eliminando a redigitação e aproveitando ao máximo os
-	recursos oferecidos.
-	Quando foi criado, o Shell era a interface padrão de acesso ao computador, e nessa época,
-	os SOs apenas tratavam do gerenciamento de processos e da memória, sem incluir aplicações e interfaces adicionais, então, para o usuário (ou, para os operadores do mainframe) escolher
-	um bom Shell era tão importante quanto escolher um SO.
-	Com o avanço da tecnologia, a maneira de interagir com um computador mudou tanto
-	que muitos usuários não precisam saber o que é um shell, a maioria dos usuários, nem
-	precisam utilizar um shell. Considerando que há 30 anos atrás, os usuários só tinham acesso
-	ao mainframe através de uma estação com teclado e monitor para utilizar os comandos do
-	shell, é possível dizer que hoje, computador é algo completamente diferente. Porém, hoje
-	em dia, ainda usamos os mesmos termos para definir partes do sistema que hoje funcionam
-	de maneira diferente. por isso, antes de apresentar a história do Shell, é bom diferenciar
-	conceitos que são facilmente confundidos.
+	É comum que dados importantes estejam dividos em vários diretórios e que seja necessário percorrer por vários arquivos diferentes para obter um resultado. O exercício a seguir exige a junção de dados de arquivos de diretórios diferentes. A solução apresentada nesse material utiliza estruturas de controle como loops e branches, além de pipeline e expansões do bash.
+	
+	\section{Exercício}
+	Os dados estão organizados da seguinte forma: Cada diretório representa uma disciplina, dentro de cada um deles, existem arquivos semestrais, do primeiro semestre de 1988 até o segundo semestre de 2002. O nome desses arquivos é o ano, seguido do semestre, terminado em .dados. Por exemplo: 19942.dados é o arquivo de dados do ano 1994 no segundo semestre. Em cada arquivo .dados começa com uma linha contendo "curso:grr", e as linhas seguintes contém o curso e grr dos alunos matriculados na disciplina nesse semestre (seguindo o formato descrito na primeira linha, "curso:grr").
+	
+	A primeira etapa do exercício é listar a quantidade de alunos matriculados em todas as disciplinas para cada semestre. O resultado deve ser no formato do exemplo: 
+	
+	
+	\begin{lstlisting}
+	...
+	19892 : 414
+	19901 : 421
+	19902 : 493
+	19911 : 760
+	19912 : 764
+	...
+	\end{lstlisting}
+	
+	A segunda etapa é listar, para cada disciplina, a relação de matriculados de cada curso em cada semestre, um semestre por linha.
+	
+	\section{Solução}
+	
+	\subsection{Parte 1}
+	\begin{lstlisting}
+	#!/bin/sh
+	
+	path="/nobackup/bcc/$USER/DadosMatricula"
+	
+	# escolhe uma das disciplinas e lista os semestres
+	for i in $(ls -1 \$path/$(ls -1 $path | tail -1) | cut -c-5); do
+		# para cada semestre, conta as linhas de todos os arquivos de dados
+		# daquele semestre (dentro de todos os diretorios de disciplinas),
+		# removendo linhas repetidas
+		echo "$i : $(cat $path/*/$i.dados | sort -du | head -n -1 | wc -l)";
+	done
+	\end{lstlisting}
+	Primeiramente, o diretório dos dados é definido em uma varável para evitar repetição e facilitar modificações.
+	O laço serve para percorrer todos os semestres de um disciplina. Como todas as disciplinas devem possuir arquivos de dados para o mesmo período de tempo, não importa qual disciplina é utilizada para listar os semestres existentes.
+	
+	Nesse caso, ls -1 lista 1 arquivo por linha, então, o ls -1 de dentro lista todas as disciplinas do diretório dos dados, e o tail -1 pega apenas a última disciplina, e essa, será a disciplina usada para o primeiro ls -1 listar os semestres. O cut -c-5 serve para manter apenas o ano e semestre e remover o ".dados" dos nomes.
+	
+	Dentro do laço, o echo imprime o ano-semestre, seguido da quantidade de matrículas. O cat está sendo aplicado para todos os arquivos de semestre de todas as disciplinas com a expansão *. O sort -u serve para remover linhas duplicadas (já considerando as matrículas de todas as disciplinas naquele semestre) e o sort -d apenas ordena para que seja possível remover a última linha, que será a linha que não começa com um número, ou seja, o cabeçalho (que só aparece uma vez, devido ao sort -u remover linhas duplicadas). Por fim o wc -l conta a quantidade de linhas, que após o tratamento anterior, é a quantidade de matrículas daquele semestre.
 	
 	\newpage
-	\part{História e Conceitos relacionados a Shell}
+	\subsection{Parte 2}
 	
-	\section{Resumo}
-	O Shell é uma interface eficiente de acesso aos serviços do kernel. Shells mais recentes
-	permitem operações além da simples interpretação de comandos e facilitam o uso com
-	funcionalidades que automatizam tarefas repetitivas, porém, o custo dessa facilidade é uma
-	interface pouco intuitiva, por isso, esse material explica brevemente a história do desenvolvimento de alguns dos Shells mais relevantes, suas estruturas e funcionalidades.
+	\begin{lstlisting}
+	#!/bin/sh
 	
-	\section{Introdução}
-	Com o avanço da tecnologia, a maneira de interagir com um computador mudou tanto que muitos usuários não precisam saber o que é um shell, a maioria dos usuários, nem precisam utilizar um shell.
-	Considerando que há 30 anos atrás, os usuários só tinham acesso ao mainframe através de uma estação com teclado e monitor para utilizar os comandos do shell, é possível dizer que hoje, computador é algo completamente diferente. Porém, hoje em dia, ainda usamos os mesmos termos para definir partes do sistema que hoje funcionam de maneira diferente. Então antes de apresentar a história do Shell, é bom diferenciar conceitos que são facilmente confundidos.
+	path="$HOME/DadosMatricula"
 	
-	\section{Terminal vs Console vs Shell}
+	# escolhe uma das disciplinas e lista os semestres
+	for disc in $(ls -1 $path); do
+		echo "$disc: --------------------";
+		for sem in $(ls -1 $path/$disc | cut -c-5); do
+			cod=0;
+			count=0;
+			print=0;
+			for lin in $(cat $path/$disc/$sem.dados | tail -n +2); do
+				if [ $(echo $lin | cut -c-2) -eq $cod ]; then
+					count=$(($count + 1));
+				else
+					if [ "$cod" -ne 0 ]; then
+						if [ $print -eq 0 ]; then
+							print=1;
+							echo -n "$sem    -";
+						fi
+					echo -n " $cod : $count /"; 
+					fi
+					cod=$(echo $lin | cut -c-2);
+					count=$((1));
+				fi  
+			done
+			if [ "$cod" -ne 0 ]; then
+				if [ $print -eq 0 ]; then
+					print=1;
+					echo -n "$sem    -";
+				fi
+				echo -n " $cod : $count /"; 
+			fi
+			if [ $print -eq 1 ]; then
+				echo " ";
+			fi
+		done
+	done
+	\end{lstlisting}
 	
-	\subsection{Terminal}
-	Se você usa alguma distribuição UNIX, provavelmente já deve ter usado um terminal, mas certamente, não da mesma maneira que terminais eram utilizados antigamente. É fácil confundir e achar que o terminal está executando as operações, mas na verdade o terminal é apenas uma interface gráfica de um console. Pensando no terminal de antigamente é mais fácil entender que não é o terminal que executa os comandos. O terminal era algo físico, um ponto de acesso com meios de entrada e saída (teclado e monitor) para iteragir com a máquina, pois antes um computador era compartilhado por vários operadores.
-	Atualmente, cada usuário trabalha em uma máquina diferente, e um terminal é a janela representada na figura \ref*{fig:term1}.
-	\begin{figure}[h]
-		\includegraphics[width=\linewidth]{term2.png}
-		\caption{A figura mostra a interface gráfica de um terminal atual.}
-		\label{fig:term1}
-	\end{figure}
-	\subsection{Console}
-	Então, terminal é um meio de acesso a um console, mas os comandos que você insere também não são do console, e sim do Shell, mas voltando ao console, não é necessário um terminal para acessar um console conforme a figura \ref*{fig:shellstruct}. Em um sistema linux, apertando "ctrl" + "alt" + "F1 , F2 , ... , F6" é possível acessar um dos consoles (F7 para sair). Hoje, isso também é conhecido como o modo texto do seu sistema operacional, pois é mais intuitivo que usar o termo console. Se um terminal era uma estação com tela e teclado, o console era a conexão física e digital entre o terminal e o mainframe. Então, Para cada sistema existe um console diferente, ligando cada sistema, a uma interface (geralmente, de texto), existem diferentes consoles que servem como interfaces para diferentes sistemas: BIOS, Boot Loader, init (processo incial do boot de sistemas unix). O console que está em uso quando você usa um terminal te da acesso ao Shell.
-	\subsection{Shell}
-	Shell possui esse nome pois ele funciona como uma casca separando o kernel do exterior. Sua função é servir de interface para acessar as funções do sistema operacional, tendo a vantagem de funcionar da mesma maneira em qualquer sistema operacional baseado em unix, escondendo detalhes específicos de cada SO.
-	Portanto, os comandos que você insere no terminal, são comandos do Shell que você está utilizando, que, na maioria dos sistemas linux atualmente, é o Bash. Diferentes Shells possuem funcionalidades diferentes, possivelmente implementadas com comandos diferentes, essas funcionalidades incluem:
+	Essa solução percorre, para cada disciplina, todos os semestres, e, para cada um deles, conta as linhas que começam com o mesmo código. A parte mais difícil desse exercício é ignorar os semestres sem matrículas na disciplina. Uma solução possível é contar a quantidade de códigos de cursos diferentes (salvando os códigos), e contar a quantidade de matrículas de cada um deles e assim, no final, se a quantidade de códigos de curso for 0, não é necessário imprimir a linha daquele semestre, para a disciplina atual. Entretanto, essa solução resolve o problema sem guardar a quantidade de cursos diferentes encontrados, aproveitando-se de que as matrículas de cada curso sempre aparecem em sequência (e caso isso seja alterado, é possível as ordenar).
+	
+	O laço externo é o mais simples, apenas percorre as disciplinas, imprimindo o nome da disciplina. Dentro desse, o segundo laço percorre pelos semestres dessa disciplina, novamente removendo o ".dados" para melhorar a impressão. Em seguida são inicializadas váriáveis para: 
 	\begin{itemize}
-		\item Executar comandos.
-		\item Manipulação de diretórios.
-		\item Controle de processos (jobs).
-		\item Expansões.
-		\item Redirecionamento.
-		\item pseudônimos (aliases).
-		\item Histórico de comandos.
+		\item Guardar o código encontrado mais recente
+		\item Contar em quantas linhas esse código aparece
+		\item Guardar se o cabeçalho do semestre já foi impresso
 	\end{itemize}
-	E muitas outras funcionalidades para facilitar, agilizar e automatizar as atividades realizadas.\\
-	Essas são algumas funcionalidades que estamos acostumados a utilizar hoje, mas nas primeiras versões de Shell, muitas delas não existiam
-	\\
-	\begin{figure}[h]
-		\includegraphics[width=\linewidth]{shell_struct1.png}
-		\caption{Relação entre Shell, Kernel e usuário}
-		\label{fig:shellstruct}
-	\end{figure}
+	Essa última variável é necessária pois a solução imprime a quantidade de matrículas de um curso assim que encontra um novo código de curso ou o fim do arquivo. Porém, se o cabeçalho do semestre fosse impresso antes do laço, ele seria impresso até para os semestres sem nenhuma matrícula.
 	
-	\section{Unix, GNU, Linux e Shell}
-	Em 1971, Ken Thompson desenvolveu o primeiro UNIX Shell, chamado de V6 Shell (foi criado no Unix versão 6), e suas funcionalidades muito básicas, ele permitia pipes e redirecionamentos, mas ele estava mais próximo de um interpretador de comandos, ao invés de scripts\par
-	Dessa necessidade surgem novos Shells, com novas funcionalidades. Em 1977 foi criado o Bourne Shell, com dois objetivos: Servir como um interpretador de comandos e rodar scripts. Além disso, o Bourne Shell acrescentou ferramentas de controle (até então "if" existia como uma extensão, mas não era implementado diretamente no Shell V6), loops e variáveis, facilitando o uso de comandos e a criação de scripts. A partir disso surgem muitos outros Shells, e todos seguiram essas funcionalidades. Os principais foram: C-Shell, com o objetivo de deixar os scripts mais parecidos com a linguagem C. Korn Shell, que adicionou novas funcionalidades ao mesmo tempo que manteve forte compatibilidade com o Bourne Shell, e por fim, o Bourne Again Shell (Bash), que além de manter a compatibilidade com o Bourne Shell, também implementou as funcionalidades do C-Shell e Korn shell, ele também continuou a evoluir com o tempo, porém, um dos grandes facilitadores para o Bash ser o mais usado dos 3 é o fato de ele ser um projeto Open Source do GNU. \par
-	O projeto GNU não se trata apenas de criar uma versão open source do UNIX, mas sim de criar um ambiente onde sistemas abertos respeitam especificações e padrões, de modo que os usuários tivessem a liberdade para escolher, usar, distribuir e modificar software, e para isso é necessário que todo o sofwate: Sistema operacional, drivers, programas fossem software livre. Para isso a criação do Bash foi necessária, e com o sucesso do \cite{gnu}, o Bash foi o Shell mais difundido.
-	\section{Z Shell}
-	Ainda existem Shells sendo criado até hoje, geralmente adicionando funcionalidades para
-	facilitar o uso das ferramentas já existentes no Bash, por exemplo, o Z shell (zsh) permite
-	que usuário selecione o resultado das expansões de nomes de arquivos antes de executar o
-	comando, além disso, quando o usuário digita parte de um caminho da árvore de diretórios,
-	o zsh deixa visível os arquivos e diretórios visíveis à partir do caminho digitado, assim,
-	unindo a intuitividade da interface gráfica com a agilidade da interface textual.
-	\section{Conclusão}
-	A maior evolução de qualquer Unix Shell foi a ideia de transformar o shell em uma ferramenta para Scripts, e não apenas um interpretador de comandos, essa mudança surgiu no Bourne Shell, e é bem provável que, qualquer que seja o Shell mais comum no futuro, continue sendo algum derivado do Bourne Shell.
-	
-	\newpage
-	\part{Uso Básico do Bash}
-	\section{Resumo}
-	 As próximas seções explicam o sistema de arquivos e diretórios e maneiras de navegar entre eles, além do uso de pipelines, expansões e ferramentas de entrada e saída para usar o Bash como um interpretador de scripts, e não apenas de comandos separados.
-	
-	\section{Introdução}
-	Se você já precisou usar comandos do Bash para buscar partes específicas de um arquivo de texto, você sabe que muitas vezes é necessário usar mais de um comando, e simplesmente não é prático usar vários arquivos intermediários para chegar no seu resultado final. O próximo parágrafo desse material explica como usar qualquer comando, porém, o Bash não se tornou o Shell mais utilizado por ser um simples interpretador de comandos.
-	
-	\section{Estrutura dos comandos do Bash}
-	Uma linha de comando consiste de uma ou mais palavras, separadas por espaços. A primeira palavra é o próprio comando, seguido de um ou mais parâmetros(alguns comandos não exigem nenhum parâmetro). Um tipo comum de parâmetros são as opções, geralmente na forma de um traço seguido de uma letra. Algumas opções têm seus próprios parâmetros. Para exemplificar, vamos usar um comando que ordena linhas, o "sort". Suponha que queremos ordenar as linhas de um arquivo chamado lista.txt e queremos uma ordenação numérica, para isso usamos o seguinte comando:
-	\begin{lstlisting}
-	sort -n lista.txt
-	\end{lstlisting}
-	Neste caso, "sort" é o comando, "-n" é a opção que indica ordenação numérica e o "lista.txt" é o parâmetro que seleciona qual arquivo deve ser ordenado.
-	Para saber quais opções e quantos parâmetros um comando pode ter, utilize o comando man, que também detalha o funcionamento do comando, então, em caso de dúvidas sobre como usar algum comando, leia a man page. basta digitar:
-	\begin{lstlisting}
-	man comando # troque "comando" pelo comando a ser  consultado
-	\end{lstlisting}
-	Neste caso, "man" é o comando e "comando" é o parâmetro para escolher qual man page deve ser consultada. Além disso, o conteúdo da linha à partir do '\#' é lido como comentário.
-	
-	\section{Arquivos e Diretórios}
-	Em sistema UNIX, o conceito de arquivo é bem amplo, não há nenhuma estrutura definida, o significado da sequência de bytes armazenada em um arquivo, é dependente de qual aplicação o utiliza. O nome do arquivo também não é definido. Todo tipo de padrão como headers, conteúdo e extensões(".txt, .mp3") são maneiras de organizar os arquivos. É possível separar os tipos de arquivos em 3:
-	\begin{itemize}
-		\item Arquivo de texto, que contém caracteres legíveis.
-		\item Arquivo executável, o conteúdo desse tipo de arquivo não são caracteres legíveis, então não é uma boa ideia abrir um arquivo como esse em um editor de texto.
-		\item Diretório. Conhecidos pela abstração "pasta". São criados para guardar outros arquivos (qualquer tipo, até outros diretórios).
-	\end{itemize}
-	\subsection{Navegação}
-	Uma abstração importante dos sitemas UNIX é a árvore de diretórios. Mesmo que os dados não sejam armazenados dessa forma, diretórios possuem uma estrutura hierárquica, onde um diretório é o pai de todos os diretórios que ele contém. Diretórios são irmãos, se possuem o mesmo pai, além disso, diretórios possuem apenas um pai. O diretório raiz é chamado "root".
-	
-	Para poder navegar pela árvore de diretórios e não precisar saber ou digitar o caminho completo de um arquivo, existe o conceito de diretório atual, assim, é possível se referir a arquivos tanto de maneira relativa a esse diretório quanto de maneira absoluta(partindo do root, para isso, o caminho deve começar com uma barra (/)). Os caminhos são compostos de diretórios separados por barra. Para que um caminho seja válido, os diretórios em sequência, devem possuir uma conexão na árvore de diretórios.
-	
-	Além disso, Todo diretório possui uma conexão ao diretório pai (..) e a si mesmo (.), assim, é possível acessar qualquer diretório, a partir de qualquer outro diretório, porém, caso o diretório corrente seja um diretório profundo de um ramo da árvore, pode ser mais rápido acessar o diretório desejado pelo seu caminho absoluto, partindo da raiz, ao invés de retornar vários diretórios usando "..".
-	
-	Além da árvore de diretórios e do diretório atual, no UNIX, cada usuário possui um diretório "home", esse diretório serve para separar os arquivos do sistema, executáveis de programas, e outros arquivos, dos diretórios pessoais do usuário. Convenientemente, um usuário logado possui um atalho para a sua home, sendo assim, ele sempre pode se referenciar a sua home com o caractere TIL (\texttildelow).
-	Exemplos: 
-	\begin{lstlisting}
-	/home/usuario/Documentos
-	../../media/dispositivo
-	~/Downloads
-	\end{lstlisting}
-	Os comandos da tabela \ref{table:1} são os mais usados para navegação na árvore de diretórios:
-	
-	\begin{table}[!ht]
-		\centering
-		\begin{tabular}{ | c | c | } 
-			\hline
-			\bfseries Nome do comando & \bfseries Função \\
-			\hline
-			pwd & Retorna o diretório atual \\
-			\hline
-			ls & Lista os arquivos de um diretório \\
-			\hline
-			cd & Muda o diretório atual \\
-			\hline
-			mkdir & Cria um novo diretório \\
-			\hline
-		\end{tabular}
-		\caption{Comandos de navegação}
-		\label{table:1}
-	\end{table}
-	O comando ls pode ser usado no diretório atual ao omitir o parâmetro de localização, existem opcionais para mostrar metadados e incluir arquivos ocultos (arquivo cujo nome começa com ponto (.)). O comando cd aceita tanto caminho absoluto quando caminho relativo. Ao omitir o parâmetro de localização o diretório atual será a home. Mais detalhes sobre as opções e parâmetros dos comandos podem ser encontrados nas man pages. O mesmo vale para os comandos apresentados até o fim desse material. É indicado que o leitor teste o que é apresentado nesse material, lendo as man pages e testando opções dos comandos.
-	
-	Dica: Utilize o auto-complete para evitar digitação desnecessária! TAB para completar quando há apenas uma opção possível e TAB duas vezes para mostras as opções possíveis, tanto para completar comandos quanto para nomes de arquivos e diretórios existentes e acessíveis no caminho digitado(na verdade, os comandos também são arquivos, os comandos do Bash ficam no diretório /bin).
-	\section{Expansão}
-	A seção anterior detalha como navegar na árvore de diretórios, porém, muitas vezes não mantemos um mapa mental completo da árvore e nesse caso a navegação, mesmo com auto-complete ainda é muito precária. Esse é um dos usos dos caracteres coringas, ou, "meta-caracteres".
-	
-	O asterísco (*) substitui qualquer sequência de caracteres e o ponto de interrogação (?) substitui um único caractere. Então, suponha que em seu diretório atual, existem os seguintes arquivos: b16c8a16.txt, b4c4a32.txt e b128c2a8.txt, suponha também uma infinidade de arquivos com nomes variados de modo que ls não é a forma mais rápida de identificar arquivos. com o asterísco, é possível selecionar um arquivo sabendo apenas parte de seu nome, por exemplo, o comando "ls b16*" retornaria apenas o arquivo b16c4a32.txt (caso nenhum outro arquivo do diretório corrente comece com b16). o comando "ls b1?c" retorna apenas o arquivo b16c8a16.txt. Usando um "*" no lugar do "?", o comando retornaria tanto o arquivo "b16c8a16.txt" quanto o "b128c2a8.txt".
-	
-	Suponha agora que você quer imprimir o conteúdo de todos os arquivos que acabam em ".txt". O comando cat imprime o conteúdo de um arquivo na tela. Caso o usuário não saiba o nome de todos os arquivos(ou apenas não queira digitar todos), mesmo que sejam muitos arquivos, ainda é possível realizar essa tarefa apenas com o seguinte comando:
-	\begin{lstlisting}
-	cat *.txt
-	\end{lstlisting}
-	Com os comandos mv(mover) e cp(copiar) é possível realizar rapidamente tarefas bem comuns de gestão de arquivos. É indicado que o leitor crie um diretório para testar comandos com '*' e '?', em especial com o comando rm (remover). Cuidado com o uso de ".*", lembre dos diretórios . e .. antes de executar comandos destrutivos.
-	
-	Com o uso dos colchetes ('[' e ']') é possível criar coringas mais específicos para a expansão de caminhos, por exemplo, a expansão *.[abc] funciona para todos os 3 casos: "*.a", "*.b" e "*.c". A tabela \ref{table:2} possui mais exemplos de expansão, lembre que a expansão de colchetes corresponde a um único carectere:
-	\begin{table}[!ht]
-		\centering
-		\begin{tabular}{ | c | c | } 
-			\hline
-			\bfseries Expansão & \bfseries corresponde à \\
-			\hline
-			[b-e.;!] & Qualquer letra minúscula de "b" a "e", ".", ";" e "!" \\
-			\hline
-			[!b-e] & Qualquer dígito, exceto letras minúsculas de "b" a "e" \\
-			\hline
-			[A-Z0-9] & Qualquer letra maiúscula de "A" a "Z" e qualquer número de um dígito \\
-			\hline
-			[a-df-i] & a, b, c, d, f, g, h, i \\
-			\hline
-			[abc-] & 'a', 'b', 'c', ou '-' \\
-			\hline
-		\end{tabular}
-		\caption{Expansão de caminhos}
-		\label{table:2}
-	\end{table}
-	
-	
-	Expansão de caminhos é o primeiro passo para fazer scripts em Bash, com eles é possível realizar ações para várias entradas, de uma só vez. Porém, nem todo parâmetro é um nome de arquivo ou diretório, para isso existe a expansão de chaves ('\{' e '\}'), que permite a expansão para um conjunto de strings, separadas por ','. Apesar de funcionar de maneira parecida, nesse tipo de expansão, não há a necessidade de corresponder com nomes de arquivos existentes. A tabela \ref{table:3} contém exemplos de uso da expansão de chaves:
-	
-	\begin{table}[!ht]
-		\centering
-		\begin{tabular}{ | c | c | } 
-			\hline
-			\bfseries Expansão & \bfseries Resultado \\
-			\hline
-			cat func.\{c,h\} & conteúdo dos arquivos fun.c func.h \\
-			\hline
-			ls rec0\{1..4\}.mp3 & rec01.mp3 rec02.mp3 rec03.mp3 rec04.mp3 \\
-			\hline
-			\multirow{2}{13em}{touch 201\{5..7\}/ex\{1..4\}.txt} & cria ex1.txt, ex2.txt, ex3.txt e ex4.txt \\ 
-			& nos diretórios 2015, 2016 e 2017 \\
-			\hline
-			echo turma\{A..D\} & turmaA turmaB turmaC turma D\\
-			\hline
-			echo turma\{A..G..2\} & turmaA turmaC turmaE turma G\\
-			\hline
-		\end{tabular}
-		\caption{Expansão de chaves}
-		\label{table:3}
-	\end{table}
-	Se necessário, consulte as man pages dos comandos echo e touch. Com a expansão de chaves é possível expandir caminhos que não existem, então dependendo do caso você pode obter respostas de erro do comando utilizado.
-	
-	As mensagens de erro dos comandos do Bash são bem intuitivas, antes de ir ao google, leia a mensagem de erro, e se necessário a man page. Para os casos comuns, isso basta.
-	
-	Em caso de dúvidas nos resultados das expansões, use o comando echo para conferir se a expansão gera o resultado esperado, antes de usar a expansão em comandos que podem estragar ou mover arquivos importantes. Lembre-se da diferença entre a expansão de chaves da expanção de colchetes.
-	\section{Redirecionamento de Entrada e Saída}
-	Os redirecionamentos são o próximo passo da evolução de comandos para scripts. As expansões são muito úteis, mas nem tudo pode ser resolvido com apenas um comando. Uma ótima abstração para entender a funcionalidade do redirecionamento no Bash é pensar nos comandos como filtros. Um comando recebe uma entrada e produz uma saída, até esse ponto do material a entrada era sempre lida pelo teclado (stdin - Standard Input) e imprimidas na tela (stdout - Standard Output), porém, se é possível usar comandos como filtros, podemos redirecionar a saída de um comando para a entrada de outro, e assim, combinar vários comandos para obter a saída desejada, com uma estrutura parecida com essa:
-	
-	\begin{lstlisting}
-	entrada -> Filtro1 -> Filtro2 -> ... -> FiltroN -> saída
-	\end{lstlisting}
-	A notação para redirecionamento de entrada é '<' e, '>' para saída. Então, o seguinte exemplo redireciona a saída do comando cat para o arquivo teste.txt:
-	
-	\begin{lstlisting}
-	cat texto.txt > teste.txt
-	\end{lstlisting}
-	Também é possível redirecionar a entrada de um comando. Suponha um programa que lê na entrada padrão. Caso hajam muitas entradas de teste ou caso a entrada seja muito grande. É possível redirecionar um arquivo como entrada dessa forma:
-	
-	\begin{lstlisting}
-	./programa < entrada1.txt
-	\end{lstlisting}
-	Observação: './' é a maneira de executar um arquivo executável (tente './ls' no diretório '/bin').
-	
-	A última ferramente para usar programas e comandos como filtros, como exemplificado anteriormente é o pipeline (|). O pipeline elimina a necessidade de arquivos intermediários e liga diretamente a saída de um programa a entrada de outro conforme o exemplo:
-	
-	\begin{lstlisting}
-	ls /dev | grep std | tee file1.txt file2.txt file3.txt
-	\end{lstlisting}
-	O resultado desse comando imprime 3 arquivos: 'stdin', 'stdout' e 'stderr'. O terceiro ainda não foi apresentado nesse material. stderr é, por convenção, o local para imprimir warnings e erros dos programas, como um log.
-	O comando grep seleciona apenas as linhas do resultado que contém a substring passada como parâmetro. O comando tee redireciona a entrada para todos os arquivos passados como parâmetro.
-	
-	Um uso comum do pipeline é filtrar diferentes dados dos nomes de arquivos partindo do comando ls, ou do conteúdo desses, partindo do comando cat, e utilizar os comandos grep, cut e tr, respectivamente para filtrar linhas específicas, filtrar seções de uma linhas e substituir caracteres, e, ao final é possível redirecionar a saída para um arquivo.
-	
-	\section{exercício}
-	
-	\begin{enumerate}
-		\item Utilizando apenas um comando mkdir e expansão de chaves, crie os 7 diretórios com os seguintes nomes: 3 diretórios para turmaAP, turmaREP e turmaFN e os 3 diretórios turmaA, turmaB e turmaC 1 diretório de nome alunos. Dentro de um diretório seguro para testes.
-		
-		Resposta:
-		\begin{lstlisting}
-		mkdir turma{{A..C},{AP,REP,FN}} alunos
-		\end{lstlisting}
-		\item dentro do diretório alunos, crie arquivos de nome de alunos no formato aluCnotaN para cada curso C entre: BCC, IBM, TADS e OUTRO e para cada nota N entre 0 a 10 e NULL. Exemplo de arquivo: aluBCCnotaNULL
-		
-		Resposta:
-		\begin{lstlisting}
-		touch alunos/alu{BCC,IBM,TADS,OUTRO}nota{{0..10},NULL}
-		\end{lstlisting}
-		\item Copie os arquivos do diretório alunos para o diretório correspondente de acordo com a tabela \ref{table:4}:
-		
-		\begin{table}[!ht]
-			\centering
-			\begin{tabular}{ | c | c | c | } 
-				\hline
-				\bfseries Exercício & \bfseries Arquivos & \bfseries Copiar para \\
-				\hline
-				3.1 & Alunos de BCC com nota diferente de NULL & turmaA \\
-				\hline
-				3.2 & Alunos de IBM com nota diferente de NULL & turmaB \\
-				\hline
-				3.3 & Alunos de TADS com nota diferente de NULL & turmaC \\
-				\hline
-				3.4 & Alunos de BCC, IBM e TADS com nota de 0 a 3 & turmaREP \\
-				\hline
-				3.5 & Alunos de BCC, IBM e TADS com nota de 4 a 6 & turmaFN \\
-				\hline
-				3.6 & Alunos de BCC, IBM e TADS com nota de 7 a 10 & turmaAP \\
-				\hline
-			\end{tabular}
-			\caption{Relação de arquivos e destinos}
-			\label{table:4}
-		\end{table}
-		Resposta:
-		\begin{lstlisting}
-		cp alunos/aluBCCnota[!A-Z]* turmaA/
-		cp alunos/aluIBMnota[!A-Z]* turmaB/
-		cp alunos/aluTADSnota[!A-Z]* turmaC/
-		cp alunos/alu{BCC,IBM,TADS}nota[0-3] turmaREP/
-		cp alunos/alu{BCC,IBM,TADS}nota[4-6] turmaFN/
-		cp alunos/alu{BCC,IBM,TADS}nota{7..10} turmaAP/
-		\end{lstlisting}
-	\end{enumerate}
+	Dentro do segundo laço, o terceiro laço percorre as linhas do arquivo de semestre (exceto a linha de cabeçalho, removida pelo tail -n +2, que inverte o parâmetro do tail, e, ao invés de manter uma quantidade de fixa de linhas no final do arquivo, remove uma quantidade fixa de linhas no começo do arquivo). Para cada linha, ao encontrar um código novo, o resultado do código antigo é impresso, o código é salvo e a contagem se inicia. (exceto para o código 0, que é o número de inicialização da variável). No caso de o código ser igual ao código salvo, o contador aumenta. Ao terminar o laço, imprime o resultado do último código de curso encontrado, pois a impressão acontece dentro do laço ao encontrar um novo código. Antes de qualquer impressão, é verificado se o cabeçalho do semestre já foi impresso, caso não tenha sido, ele é imprimido e a variável que guarda a confirmação dessa impressão é atualizada, de modo a imprimir o cabeçalho do semestre apenas uma vez por semestre. Por fim, caso um ou mais cursos tenham sido impressos, o echo '' '' apenas pula uma linha antes de iniciar o próximo laço.
 	
 	\section{Conclusão}
-	As ferramentas do Bash apresentadas nesse material, juntamente com estruturas de controle
-	(if e for) e variáveis, permitem que sejam criados scripts que interagem dinamicamente com
-	os dados sem excesso de digitação e trabalho por parte do usuário. Para que esse conteúdo
-	seja entendido pelo leitor é ideal que os conhecimentos sejam aplicados na prática. Para isso,
-	são indicados os materiais do professor Roberto Hexsel \cite{roberto1, roberto2}, além
-	de serem bem explicativos, possui vários exemplos, explicam novos comandos e possuem
-	alguns exercícios para praticar.
+	Devido a quantidade de branches para tratar o caso de arquivos sem matrícula, essa solução tem um desempenho pior que a solução que guarda os códigos e a quantidade de ocorrências em vetores. Outra solução possível, com menos branches, é, realizar esse tratamento antes de entrar no laço, verificando se o arquivo do semestre possui apenas uma linha (de cabeçalho), e nesse caso, ignorar esse semestre.
 	
-	\newpage
-	\part{Customização do ambiente}
-	\section{Resumo}
-	A seção seguinte explica os métodos de customização do Shell, sem a intenção de listar e detalhar as opções, porém, bibliografias para consulta das opções serão indicadas. Alguns desses métodos são utilizados por outras aplicações como editores de texto.
-	
-	\section{Introdução}
-	As duas principais maneiras de customização do bash são opções e variáveis de ambiente, algumas opções são definidas com o comando set, outras com o comando shopt (shell options), e as variáveis de ambiente são variáveis definidas sempre que o bash inicia a execução. Opções e variáveis podem ser alteradas pelo usuário a qualquer momento, mas, para que não seja necessário configurar o bash toda vez ao abrir um bash, elas podem ser definidas nos arquivos: .bash\_profile e .bashrc. Para explicar o funcionamento desses arquivos, antes é necessário definir as variáveis do Bash.
-	
-	\section{Variáveis e Aliases}
-	Para auxiliar os scripts no Bash, variáveis servem para guardar qualquer tipo de valor, incluíndo retorno de programas\footnote[1]{Para atribuir o retorno da execução de um programa em uma variável, deve-se englobar a execução no seguinte formato: variavel=\$(execução)}. A sintaxe para definir variáveis é: \texttt{\textbf{\textit{nome=valor}}}, sem espaços antes ou após o '=', e se o valor contém um ou mais espaços, o valor deve estar entre aspas\footnote[2]{Aspas simples para o valor literal da string e aspas duplas para realizar expansões e traduzir valores de variáveis dentro do conteúdo}. Para obter o valor de uma variável, a sintaxe é \texttt{\textbf{\textit{\$nome}}}.
-	
-	De maneira similar é possível definir aliases, para encurtar comandos muito usados que são difíceis de digitar. Por exemplo, é possível definir que o comando \texttt{\textbf{\textit{pr * | lpr}}} será executado ao digitar \texttt{\textbf{\textit{pa}}}, usando o comando: \texttt{\textbf{\textit{alias pa='pr * | lpr'}}}. É importante ressaltar que aliases podem ser usados apenas no início de um comando, e apesar de existirem outras formas de contornar os problemas gerados por essa limitação, nas próximas partes desse material, serão apresentadas as funções, que permitem mais flexibilidade que os aliases.
-	
-	\section{Os arquivos de configuração e Run-Control}
-	Existem dois arquivos para customizar o shell, o primeiro deles é o profile, situado no diretório home de cada usuário, geralmente usado para definir variáveis de ambiente e opções, como definições padrão e escolhas de método de funcionamento do bash. Uma lista de variáveis pode ser encontrada, digitando:
-	\begin{lstlisting}
-	compgen -v | while read line; do echo \$line=\${!line};done
-	\end{lstlisting}
-	O comando while está sendo utilizado apenas para imprimir conteúdos de variáveis que contém mais de uma linha. Mais detalhes sobre o comando while serão tratados nas próximas partes desse material.
-	A lista de opções pode ser encontrada no manual de referencia do bash\cite{bashman}, nas seções 4.3.1 e 4.3.2.
-	Existem muitas opções e variáveis de ambiente, por isso, é mais produtivo que o autor procure por elas de acordo com a necessidade de alguma configuração específica. Esse não é o caso para a variável \$PATH, pois algumas aplicações exigem que o usuário altere seu conteúdo, essa variável contém os caminhos dos arquivos executáveis, então se você quer tornar executáveis próprios acessíveis sem a necessidade de referenciar o caminho até o executável, é indicado criar um diretório para esses executáveis, e adicionar o caminho desse diretório à variável \$PATH. Para adicionar um caminho à variável PATH sem sobrescrever seu conteúdo, atribua \texttt{\textbf{\textit{PATH=\$PATH":/home/caminho/do/diretorio"}}}.
-	
-	Outro arquivo de customização do bash é o .bashrc, também situado na home do usuário. Esse arquivo geralmente contém definições de preferências pessoais, como mudar o prompt, ou mudar as cores além da definição de aliases. O .bashrc é um arquivo de run-control, usados por diversas aplicações como um arquivo de declarações e comandos, associados ao programa que o interpreta na inicialização\footnote[3]{Geralmente sistemas possuem um arquivo de run control com definições compartilhadas para todos os usuários, e outro, na home de cada usuário, para definições pessoais}. O processo de inicialização, que inclui como o bash interpreta as definições desses dois arquivos é detalhada na seção seguinte.
-	
-	O conteúdo dos dois arquivos de configuração é apenas uma convenção de boa prática para facilitar a identificação dessas configurações. Idealmente as alterações devem ser seguidas de comentários. Como dito antes, esse material não descreve cada opção de configuração, isso porque são tantas opções que dificilmente o leitor não lembraria de cada detalhe quando seu uso fosse necessário, o mesmo acontece para para os arquivos de configuração, caso seja necessário retornar à configuração, um comentário relembrando a necessidade de cada linha é muito bem vindo.
-	
-	Ainda existe o arquivo .bash\_logout para as definições e principalmente execução de scripts que é executado ao encerrar a execução do Bash.
-
-	\section{Inicialização do Bash}
-	Para reforçar, um shell interativo é aberto ao shell através de um terminal, e quando o acesso ao shell exige um login e senha, como no acesso através do modo texto ou ssh, esse é chamado de login shell.
-	
-	Ao iniciar um login shell, após a autenticação, o shell executa o script /etc/profile, que inicializa variáveis necessárias e executa os scripts (*.sh) do diretório profile.d. Qualquer alteração nesse procedimento deve ser incluída como um script nesse diretório, para que alterações no /etc/profile não sejam sobrescritas em alguma atualização do sistema. Por fim, o perfil pessoal do usuário, que, devido à retro-compatibilidade do bash, pode possuir diferentes nomes, será executado. A ordem de prioridade entre os arquivos de perfil de usuário, da maior para a menor, é:
-	
-	\begin{samepage}
-		\begin{itemize}
-			\item .bash\_profile
-			\item .bash\_login
-			\item .profile
-		\end{itemize}
-	\end{samepage}
-	Sendo que apenas o arquivo encontrado de maior prioridade será executado.
-	
-	Ao final da execução do perfil do usuário, o arquivo .bashrc é executado (lembre-se de manter essa definição, ao editar seu profile), também contendo definições específicas do usuário. Em alguns sistemas, também é executado o bashrc compartilhado a todos os usuários.
-	
-	Para a inicialização de um Shell interativo o processo é mais simples: Os arquivos bashrc são executados (o arquivo para todos os usuários e o específico do usuário que abriu o bash), mesmo que essa execução não seja especificada no .profile, pois a execução do bashrc é realizada diretamente pelo shell interativo.
-	
-	\section{conclusão}
-	Como esperado, o bash não possui um menu gráfico com botões e opções de configuração, ao invés disso, o usuário pode configurar o bash através de variáveis pré-definidas e opções (set e shopt). Para que não seja necessário configurar o bash toda vez que o bash é inicializado, existem os arquivos de perfil e o run control .bashrc. Pela maneira que esses arquivos são executados, suas alterações não serão refletidas em shells iniciados antes da alteração.
-	
-	O uso de arquivos run control não é exclusivo do bash e se encontra até em editores de texto como o Vim, a lista de opções de configuração do vim podem ser encontradas no manual de referência do vim \cite{viman}. O escopo desse material é apenas de informar os meios de configuração e o funcionamento do sistema de configuração. É ideal que o leitor se acostume com o fluxo de encontrar uma necessidade e buscar uma configuração para atender essa necessidade.
-
-\bibliographystyle{apalike}
-\bibliography{artbib}
 
 %----------------------------------------------------------------------------------------
 %   REFERENCE LIST
