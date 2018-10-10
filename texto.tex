@@ -66,7 +66,7 @@
 \usepackage{fancyhdr} % Headers and footers
 \pagestyle{fancy} % All pages have headers and footers
 \fancyhead{} % Blank out the default header
-\fancyhead[C]{Segundo Exercício prático de Bash} % Custom header text
+\fancyhead[C]{Terceiro Exercício prático de Bash} % Custom header text
 
 \usepackage{titling} % Customizing the title section
 
@@ -92,7 +92,7 @@
 
 \pretitle{\begin{center}\Huge\bfseries} % Article title formatting
 	\posttitle{\end{center}} % Article title closing formatting
-\title{Segundo Exercício prático de Bash} % Article title
+\title{Terceiro Exercício prático de Bash} % Article title
 \author{%
 	\textsc{Guilherme Bittencourt Bueno da Silva} \\[1ex] % Your name
 	\normalsize Universidade Federal do Paraná \\ % Your institution
@@ -121,113 +121,103 @@
 	%	ARTICLE CONTENTS
 	%----------------------------------------------------------------------------------------
 	\section{Resumo}
-	O exercício a seguir propõe ao leitor encontrar uma solução automatizada para extrair dados de arquivos de vários diretórios usando apenas o bash (e auxiliares, invocados pelo bash)
-	pelo bash). A solução inclui a pesquisa por ferramentas que possam ser de auxílio na
-	solução, como o sort, cut, wc, entre outros (para usar o bash da melhor forma é preciso
-	conhecer, ou ser capaz de pesquisar por, ferramentas que auxiliam as soluções).
+	O exercício a seguir propõe ao leitor encontrar uma solução rápida para analiser o log de um firewall, enviando e-mail caso alguma filtragem tenha muitas ocorrências e redirecionando a solução para um arquivo com nome relativo à data e versão da análise. A solução inclui a pesquisa por ferramentas que possam ser de auxílio na solução como o awk, grep entre outros.
 	
 	\section{Introdução}
-	É comum que dados importantes estejam dividos em vários diretórios e que seja necessário percorrer por vários arquivos diferentes para obter um resultado. O exercício a seguir exige a junção de dados de arquivos de diretórios diferentes. A solução apresentada nesse material utiliza estruturas de controle como loops e branches, além de pipeline e expansões do bash.
+	logs são uma fonte bem comum de dado para scripts, contendo texto em ASCII e um separador único para colunas. Logs são gerados automaticamente por algum sistema, com alguma periodicidade, portanto é comum identificar a saída de um script, que executa sobre um log, com um timestamp no nome.  O exercício a seguir exige uma contagem rápida passando por todas as linhas de um log. A solução apresentada nesse material utiliza o awk para realizar a operação principal, devido ao seu fluxo linha por linha.
 	
 	\section{Exercício}
-	Os dados estão organizados da seguinte forma: Cada diretório representa uma disciplina, dentro de cada um deles, existem arquivos semestrais, do primeiro semestre de 1988 até o segundo semestre de 2002. O nome desses arquivos é o ano, seguido do semestre, terminado em .dados. Por exemplo: 19942.dados é o arquivo de dados do ano 1994 no segundo semestre. Em cada arquivo .dados começa com uma linha contendo "curso:grr", e as linhas seguintes contém o curso e grr dos alunos matriculados na disciplina nesse semestre (seguindo o formato descrito na primeira linha, "curso:grr").
+	Cada linha do log pode ter uma quantidade diferente de colunas, separadas por espaço. Os tipos de filtragem sempre se encontram na 6ª coluna. As linhas não estão ordenadas por tipo de bloqueio.
 	
-	A primeira etapa do exercício é listar a quantidade de alunos matriculados em todas as disciplinas para cada semestre. O resultado deve ser no formato do exemplo: 
+	\begin{figure}[h]
+		\includegraphics[width=\linewidth]{loglines.png}
+		\caption{Exemplo de linhas do log}
+		\label{fig:loglines}
+	\end{figure}
+
+	\pagebreak
 	
+	Todos os tipos de filtragem existentes se encontram em um arquivo "tipos-bloqueios", no formato:
 	
 	\begin{lstlisting}
 	...
-	19892 : 414
-	19901 : 421
-	19902 : 493
-	19911 : 760
-	19912 : 764
+	V6-windows
+	bios_debian
+	bogon
+	dns
+	forward-fim
+	forward-syn-piratas
+	forward-vazamento
+	input-externo-broadcast
+	input-externo-fim
 	...
 	\end{lstlisting}
 	
-	A segunda etapa é listar, para cada disciplina, a relação de matriculados de cada curso em cada semestre, um semestre por linha.
+	O exercício consiste em fazer um script que retorne uma lista de tipos de bloqueios e suas ocorrências a partir de um log no formato descrito acima. A saída deve ser redirecionada para um arquivo contendo a data atual no nome. O script deve receber um parâmetro de versão. Versão V6, deve considerar todos os tipos de bloqueio que começam com "V6", versão "V4", deve considerar todos os tipos de bloqueios que \textbf{não} começam com "V6". Caso não receba nenhum argumento, todos os tipos de bloqueios devem ser considerados. O parâmetro de versão também deve ser identificado no nome do arquivo gerado. Os bloqueios sem nenhuma ocorrências devem aparecer no resultado. Caso um ou mais tipos de bloqueio tenham mais de 20000 ocorrências, o script deve enviar um e-mail com esses tipos de bloqueios e a quantidade de ocorrências de cada um deles.
+	
+	\pagebreak
 	
 	\section{Solução}
 	
-	\subsection{Parte 1}
 	\begin{lstlisting}
-	#!/bin/sh
-	
-	path="/nobackup/bcc/$USER/DadosMatricula"
-	
-	# escolhe uma das disciplinas e lista os semestres
-	for i in $(ls -1 \$path/$(ls -1 $path | tail -1) | cut -c-5); do
-		# para cada semestre, conta as linhas de todos os arquivos de dados
-		# daquele semestre (dentro de todos os diretorios de disciplinas),
-		# removendo linhas repetidas
-		echo "$i : $(cat $path/*/$i.dados | sort -du | head -n -1 | wc -l)";
-	done
-	\end{lstlisting}
-	Primeiramente, o diretório dos dados é definido em uma varável para evitar repetição e facilitar modificações.
-	O laço serve para percorrer todos os semestres de um disciplina. Como todas as disciplinas devem possuir arquivos de dados para o mesmo período de tempo, não importa qual disciplina é utilizada para listar os semestres existentes.
-	
-	Nesse caso, ls -1 lista 1 arquivo por linha, então, o ls -1 de dentro lista todas as disciplinas do diretório dos dados, e o tail -1 pega apenas a última disciplina, e essa, será a disciplina usada para o primeiro ls -1 listar os semestres. O cut -c-5 serve para manter apenas o ano e semestre e remover o ".dados" dos nomes.
-	
-	Dentro do laço, o echo imprime o ano-semestre, seguido da quantidade de matrículas. O cat está sendo aplicado para todos os arquivos de semestre de todas as disciplinas com a expansão *. O sort -u serve para remover linhas duplicadas (já considerando as matrículas de todas as disciplinas naquele semestre) e o sort -d apenas ordena para que seja possível remover a última linha, que será a linha que não começa com um número, ou seja, o cabeçalho (que só aparece uma vez, devido ao sort -u remover linhas duplicadas). Por fim o wc -l conta a quantidade de linhas, que após o tratamento anterior, é a quantidade de matrículas daquele semestre.
-	
-	\newpage
-	\subsection{Parte 2}
-	
-	\begin{lstlisting}
-	#!/bin/sh
-	
-	path="$HOME/DadosMatricula"
-	
-	# escolhe uma das disciplinas e lista os semestres
-	for disc in $(ls -1 $path); do
-		echo "$disc: --------------------";
-		for sem in $(ls -1 $path/$disc | cut -c-5); do
-			cod=0;
-			count=0;
-			print=0;
-			for lin in $(cat $path/$disc/$sem.dados | tail -n +2); do
-				if [ $(echo $lin | cut -c-2) -eq $cod ]; then
-					count=$(($count + 1));
-				else
-					if [ "$cod" -ne 0 ]; then
-						if [ $print -eq 0 ]; then
-							print=1;
-							echo -n "$sem    -";
-						fi
-					echo -n " $cod : $count /"; 
-					fi
-					cod=$(echo $lin | cut -c-2);
-					count=$((1));
-				fi  
-			done
-			if [ "$cod" -ne 0 ]; then
-				if [ $print -eq 0 ]; then
-					print=1;
-					echo -n "$sem    -";
-				fi
-				echo -n " $cod : $count /"; 
-			fi
-			if [ $print -eq 1 ]; then
-				echo " ";
-			fi
-		done
-	done
+	1 #!/bin/bash
+	2 
+	3 # "Versão" sem o "-"
+	4 ver=${1:1:2};
+	5 # Organiza logs criados pela data e versão
+	6 logn="log-$(date | awk -F " " '{print $3 $2 $6}')$ver";
+	7 if [ -f $logn ]; then
+	8     rm $logn;
+	9     touch "$logn";
+	10 fi
+	11 
+	12 if [ "$1" == "-V6" ]; then
+	13     bloqTypes=$(grep "V6" tipos-bloqueios | tr "\n" " ");
+	14 elif [ "$1" = "-V4" ]; then
+	15     bloqTypes=$(grep "V6" -v tipos-bloqueios | tr "\n" " ");
+	16 else
+	17     bloqTypes=$(cat tipos-bloqueios | tr "\n" " ");
+	18 fi
+	19 
+	20 mail=$(awk -v types="$bloqTypes" -v logn="$logn" '
+	21 {countTypes[substr($6, 1, length($6)-1)] += 1}
+	22 END {
+	23     split(types, tps, " ");
+	24     count = 1;
+	25     for (tp in tps)
+	26     {
+	27         print tps[tp],":",(tps[tp] in countTypes) ? countTypes[tps[tp]] : 0 >> logn;
+	28         if (countTypes[tps[tp]] > 20000)
+	29         {
+	30             print tps[tp], countTypes[tps[tp]];
+	31         }
+	32     }
+	33 }
+	34 ' log-firewall);
+	35 
+	36 echo "$mail" | mail -s "firewall warning $logn" gbbs14@inf.ufpr.br;
 	\end{lstlisting}
 	
-	Essa solução percorre, para cada disciplina, todos os semestres, e, para cada um deles, conta as linhas que começam com o mesmo código. A parte mais difícil desse exercício é ignorar os semestres sem matrículas na disciplina. Uma solução possível é contar a quantidade de códigos de cursos diferentes (salvando os códigos), e contar a quantidade de matrículas de cada um deles e assim, no final, se a quantidade de códigos de curso for 0, não é necessário imprimir a linha daquele semestre, para a disciplina atual. Entretanto, essa solução resolve o problema sem guardar a quantidade de cursos diferentes encontrados, aproveitando-se de que as matrículas de cada curso sempre aparecem em sequência (e caso isso seja alterado, é possível as ordenar).
+	As linhas 3-10 servem para criar o log com o nome no formato: log-[data][versão]. Na linha 4, a variável \texttt{\textbf{\textit{ver}}} recebe o conteúdo dos índices 1 a 2 do primeiro parâmetro \texttt{\textbf{\textit{\$1}}}. Ou seja, removendo o índice 0, que contém o "-", restando apenas V6 ou V4. A data é obtida pelo comando "date", utilizando o awk para selecionar os campos necessários. Caso já exista um log com o nome gerado no diretório atual, ele é apagado, pois o resultado é inserido nesse arquivo linha por linha, com ">>", sem sobrescrever o conteúdo anterior.
 	
-	O laço externo é o mais simples, apenas percorre as disciplinas, imprimindo o nome da disciplina. Dentro desse, o segundo laço percorre pelos semestres dessa disciplina, novamente removendo o ".dados" para melhorar a impressão. Em seguida são inicializadas váriáveis para: 
-	\begin{itemize}
-		\item Guardar o código encontrado mais recente
-		\item Contar em quantas linhas esse código aparece
-		\item Guardar se o cabeçalho do semestre já foi impresso
-	\end{itemize}
-	Essa última variável é necessária pois a solução imprime a quantidade de matrículas de um curso assim que encontra um novo código de curso ou o fim do arquivo. Porém, se o cabeçalho do semestre fosse impresso antes do laço, ele seria impresso até para os semestres sem nenhuma matrícula.
+	Nas linhas 12 a 18, os tipos de bloqueio são passados para a variável \texttt{\textbf{\textit{fileItemString}}} de acordo com a versão selecionada. A troca de \textbackslash n por espaços é necessária para que a cada elemento do array \texttt{\textbf{\textit{fileItemString}}} receba uma linha do resultado do grep.
 	
-	Dentro do segundo laço, o terceiro laço percorre as linhas do arquivo de semestre (exceto a linha de cabeçalho, removida pelo tail -n +2, que inverte o parâmetro do tail, e, ao invés de manter uma quantidade de fixa de linhas no final do arquivo, remove uma quantidade fixa de linhas no começo do arquivo). Para cada linha, ao encontrar um código novo, o resultado do código antigo é impresso, o código é salvo e a contagem se inicia. (exceto para o código 0, que é o número de inicialização da variável). No caso de o código ser igual ao código salvo, o contador aumenta. Ao terminar o laço, imprime o resultado do último código de curso encontrado, pois a impressão acontece dentro do laço ao encontrar um novo código. Antes de qualquer impressão, é verificado se o cabeçalho do semestre já foi impresso, caso não tenha sido, ele é imprimido e a variável que guarda a confirmação dessa impressão é atualizada, de modo a imprimir o cabeçalho do semestre apenas uma vez por semestre. Por fim, caso um ou mais cursos tenham sido impressos, o echo '' '' apenas pula uma linha antes de iniciar o próximo laço.
+	Na linha 20, o awk é invocado, com seu resultado sendo redirecionado à variável mail. Isso porque, dentro do awk, o real resultado será redirecionado ao arquivo criado no início do script, sendo assim, ainda é possível aproveitar o retorno do awk para retornar o conteúdo do email a ser enviado. São delclaradas 2 variáveis para o awk, contando os tipos a serem contados e nome do arquivo que deve receber o resultado.
+	
+	O fluxo principal do awk está na linha 21. Para cada linha, o array associativo \texttt{\textbf{\textit{countTypes}}}, é incrementado em cada índice. O índice é a substring da sexta coluna, removendo o último caractere, que em todos os casos é um ":". Note que não é necessário inicializar cada valor, dessa forma, ao final do arquivo, o array \texttt{\textbf{\textit{counTypes}}} contém todos os tipos de bloqueio como índice (incluíndo os tipos de bloqueio que não devem ser impressos no resultado, se houver), associados à quantidade de ocorrências de cada um deles.
+	
+	Ao final da execução principal do arquivo, no awk, nas linhas 22 a 33, para cada tipo de bloqueio (entre os bloqueios necessários para a versão escolhida), são impressos o índice associativo (tipo de bloqueio) da variável \texttt{\textbf{\textit{countTypes}}} e seu valor associado (quantidade de ocorrências) e se houverem mais de 20000 ocorrências desse tipo de bloqueio, esses valores são impressos ao retorno do awk (que no caso, é a variável mail).
+	
+	Na linha 36, um echo da variável \texttt{\textbf{\textit{\$mail}}} é usado como conteúdo do email, redirecionado ao comando mail. O campo assunto contém o nome do arquivo de retorno, que possui a data e versão da execução do script.
+	
+	\begin{figure}[h]
+		\includegraphics[width=\linewidth]{mail.png}
+		\caption{Exemplo de Email enviado}
+		\label{fig:mail}
+	\end{figure}
 	
 	\section{Conclusão}
-	Devido a quantidade de branches para tratar o caso de arquivos sem matrícula, essa solução tem um desempenho pior que a solução que guarda os códigos e a quantidade de ocorrências em vetores. Outra solução possível, com menos branches, é, realizar esse tratamento antes de entrar no laço, verificando se o arquivo do semestre possui apenas uma linha (de cabeçalho), e nesse caso, ignorar esse semestre.
+	Para otimizar o desempenho, o script conta todos os tipos de bloqueio, independente de quais tipos de bloqueios serão impressos no resultado, assim, evitando branches no loop principal, que é na linha 21, onde o awk percorre cada linha do arquivo.
 	
 
 %----------------------------------------------------------------------------------------

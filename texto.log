@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.8.4)  10 SEP 2018 21:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.8.4)  8 OCT 2018 12:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1023,50 +1023,34 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 123.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 129.
+(babel)             in language  on input line 126.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 132.
-LaTeX Font Info:    Try loading font information for T1+zi4 on input line 138.
+(babel)             in language  on input line 129.
+<loglines.png, id=22, 1622.06pt x 340.27126pt>
+File: loglines.png Graphic file (type png)
+<use loglines.png>
+Package pdftex.def Info: loglines.png  used on input line 133.
+(pdftex.def)             Requested size: 430.00462pt x 90.20259pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 139.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 139.
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./loglines.png>]
+LaTeX Font Info:    Try loading font information for T1+zi4 on input line 142.
+
 (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/t1zi4.fd
 File: t1zi4.fd 2018/01/14 T1/zi4 (Inconsolata)
 )
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 10.95pt on input line 138.
+(Font)              scaled to size 10.95pt on input line 142.
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 10.0pt on input line 138.
+(Font)              scaled to size 10.0pt on input line 142.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 )
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 150.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 150.
- [1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 150.
-
-
-Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 152.
-
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 152.
-(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
-File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
-)
-
-LaTeX Font Warning: Font shape `T1/zi4/m/it' undefined
-(Font)              using `T1/zi4/m/n' instead on input line 154.
-
-LaTeX Font Info:    Font shape `T1/zi4/m/it' will be
-(Font)              scaled to size 10.0pt on input line 154.
-LaTeX Font Info:    Font shape `T1/zi4/bx/n' in size <10> not available
-(Font)              Font shape `T1/zi4/b/n' tried instead on input line 159.
-LaTeX Font Info:    Font shape `T1/zi4/b/n' will be
-(Font)              scaled to size 10.0pt on input line 159.
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 13.59999pt.
@@ -1074,67 +1058,89 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 173.
+(babel)             in language  on input line 159.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 173.
+(babel)             in language  on input line 159.
 [2]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 174.
+(babel)             in language  on input line 160.
  (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
 )
+
+LaTeX Font Warning: Font shape `T1/zi4/m/it' undefined
+(Font)              using `T1/zi4/m/n' instead on input line 163.
+
+LaTeX Font Info:    Font shape `T1/zi4/m/it' will be
+(Font)              scaled to size 10.0pt on input line 163.
+LaTeX Font Info:    Font shape `T1/zi4/bx/n' in size <10> not available
+(Font)              Font shape `T1/zi4/b/n' tried instead on input line 169.
+LaTeX Font Info:    Font shape `T1/zi4/b/n' will be
+(Font)              scaled to size 10.0pt on input line 169.
+LaTeX Font Info:    Font shape `T1/zi4/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/zi4/b/n' tried instead on input line 201.
+LaTeX Font Info:    Font shape `T1/zi4/b/n' will be
+(Font)              scaled to size 10.95pt on input line 201.
+
+LaTeX Font Warning: Font shape `T1/zi4/bx/it' undefined
+(Font)              using `T1/zi4/bx/n' instead on input line 201.
+
+LaTeX Font Info:    Font shape `T1/zi4/bx/it' in size <10.95> not available
+(Font)              Font shape `T1/zi4/b/n' tried instead on input line 201.
+LaTeX Font Info:    Font shape `T1/zi4/b/n' will be
+(Font)              scaled to size 10.95pt on input line 201.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 205.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 205.
+[3]
+<mail.png, id=94, 505.89pt x 222.8325pt>
+File: mail.png Graphic file (type png)
+<use mail.png>
+Package pdftex.def Info: mail.png  used on input line 214.
+(pdftex.def)             Requested size: 430.00462pt x 189.41191pt.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 219.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 226.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 219.
- [3]
+(babel)             in language  on input line 226.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 229.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 236.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 236.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 236.
- [4]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 236.
+(babel)             in language  on input line 226.
+ [4 <./mail.png (PNG copy)>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 226.
+ (./texto.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 226.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 226.
+Package rerunfilecheck Info: File `texto.out' has not changed.
+(rerunfilecheck)             Checksum: EB822201144AF3DE0E42CA14EA8ECC94;247.
 
-(./texto.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 236.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 236.
-
-
-Package rerunfilecheck Warning: File `texto.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `texto.out':
-(rerunfilecheck)             Before: 2C1C8E104C7940F11ED9325E6590FA4F;365
-(rerunfilecheck)             After:  B75C6FA2494935C94327B4C842C518B9;364.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 236.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 226.
  ) 
 Here is how much of TeX's memory you used:
- 11756 strings out of 492982
- 169579 string characters out of 6134897
- 334931 words of memory out of 5000000
- 15083 multiletter control sequences out of 15000+600000
- 11673 words of font info for 33 fonts, out of 8000000 for 9000
+ 11784 strings out of 492982
+ 169813 string characters out of 6134897
+ 351040 words of memory out of 5000000
+ 15115 multiletter control sequences out of 15000+600000
+ 14985 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 53i,12n,97p,1166b,1484s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}{/usr/share/texli
-ve/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}{/usr/share/texmf/fonts/e
-nc/dvips/cm-super/cm-super-t1.enc}</usr/share/texlive/texmf-dist/fonts/type1/pu
+ 53i,12n,97p,897b,1482s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}{/usr/
+share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texmf/fonts/en
+c/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/pu
 blic/inconsolata/Inconsolata-zi4b.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/public/inconsolata/Inconsolata-zi4r.pfb></usr/share/texmf/fonts/type1/public/
-cm-super/sfbx2488.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc1200.pf
-b></usr/share/texmf/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/texmf/
-fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on texto.pdf (4 pages, 117488 bytes).
+cm-super/sfbx1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1095.pf
+b></usr/share/texmf/fonts/type1/public/cm-super/sfbx2488.pfb></usr/share/texmf/
+fonts/type1/public/cm-super/sfcc1200.pfb></usr/share/texmf/fonts/type1/public/c
+m-super/sfrm1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb
+></usr/share/texmf/fonts/type1/public/cm-super/sfti1000.pfb>
+Output written on texto.pdf (4 pages, 347555 bytes).
 PDF statistics:
- 150 PDF objects out of 1000 (max. 8388607)
- 136 compressed objects within 2 object streams
- 65 named destinations out of 1000 (max. 500000)
- 57 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 148 PDF objects out of 1000 (max. 8388607)
+ 129 compressed objects within 2 object streams
+ 56 named destinations out of 1000 (max. 500000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 
