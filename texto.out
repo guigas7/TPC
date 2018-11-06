@@ -1,28 +1,41 @@
-\BOOKMARK [1][-]{Doc-Start}{Introdu\347\343o}{}% 1
-\BOOKMARK [0][-]{part.1}{I Hist\363ria e Conceitos relacionados a Shell}{}% 2
-\BOOKMARK [1][-]{section*.1}{Resumo}{part.1}% 3
-\BOOKMARK [1][-]{section*.1}{Introdu\347\343o}{part.1}% 4
-\BOOKMARK [1][-]{section*.1}{Terminal vs Console vs Shell}{part.1}% 5
-\BOOKMARK [2][-]{section*.2}{Terminal}{section*.1}% 6
-\BOOKMARK [2][-]{figure.caption.3}{Console}{section*.1}% 7
-\BOOKMARK [2][-]{figure.caption.3}{Shell}{section*.1}% 8
-\BOOKMARK [1][-]{figure.caption.4}{Unix, GNU, Linux e Shell}{part.1}% 9
-\BOOKMARK [1][-]{figure.caption.4}{Z Shell}{part.1}% 10
-\BOOKMARK [1][-]{figure.caption.4}{Conclus\343o}{part.1}% 11
-\BOOKMARK [0][-]{part.2}{II Uso B\341sico do Bash}{}% 12
-\BOOKMARK [1][-]{section*.5}{Resumo}{part.2}% 13
-\BOOKMARK [1][-]{section*.5}{Introdu\347\343o}{part.2}% 14
-\BOOKMARK [1][-]{section*.5}{Estrutura dos comandos do Bash}{part.2}% 15
-\BOOKMARK [1][-]{lstnumber.-2.1}{Arquivos e Diret\363rios}{part.2}% 16
-\BOOKMARK [2][-]{section*.6}{Navega\347\343o}{lstnumber.-2.1}% 17
-\BOOKMARK [1][-]{table.caption.7}{Expans\343o}{part.2}% 18
-\BOOKMARK [1][-]{table.caption.9}{Redirecionamento de Entrada e Sa\355da}{part.2}% 19
-\BOOKMARK [1][-]{lstnumber.-8.1}{exerc\355cio}{part.2}% 20
-\BOOKMARK [1][-]{lstnumber.-11.6}{Conclus\343o}{part.2}% 21
-\BOOKMARK [0][-]{part.3}{III Customiza\347\343o do ambiente}{}% 22
-\BOOKMARK [1][-]{section*.11}{Resumo}{part.3}% 23
-\BOOKMARK [1][-]{section*.11}{Introdu\347\343o}{part.3}% 24
-\BOOKMARK [1][-]{section*.11}{Vari\341veis e Aliases}{part.3}% 25
-\BOOKMARK [1][-]{section*.11}{Os arquivos de configura\347\343o e Run-Control}{part.3}% 26
-\BOOKMARK [1][-]{lstnumber.-12.1}{Inicializa\347\343o do Bash}{part.3}% 27
-\BOOKMARK [1][-]{lstnumber.-12.1}{conclus\343o}{part.3}% 28
+\BOOKMARK [1][-]{Doc-Start}{Resumo}{}% 1
+\BOOKMARK [1][-]{Doc-Start}{Introdu\347\343o}{}% 2
+\BOOKMARK [0][-]{part.1}{I Hist\363ria e Conceitos relacionados a Shell}{}% 3
+\BOOKMARK [1][-]{section*.1}{Terminal vs Console vs Shell}{part.1}% 4
+\BOOKMARK [2][-]{section*.1}{Terminal}{part.1}% 5
+\BOOKMARK [2][-]{figure.caption.2}{Console}{part.1}% 6
+\BOOKMARK [2][-]{figure.caption.2}{Shell}{part.1}% 7
+\BOOKMARK [1][-]{figure.caption.3}{Unix, GNU, Linux e Shell}{part.1}% 8
+\BOOKMARK [1][-]{figure.caption.3}{Shell na atualidade}{part.1}% 9
+\BOOKMARK [0][-]{part.2}{II Uso B\341sico do Bash}{}% 10
+\BOOKMARK [1][-]{section*.4}{Estrutura dos comandos do Bash}{part.2}% 11
+\BOOKMARK [1][-]{lstnumber.-2.1}{Arquivos e Diret\363rios}{part.2}% 12
+\BOOKMARK [2][-]{section*.5}{Navega\347\343o}{lstnumber.-2.1}% 13
+\BOOKMARK [1][-]{table.caption.6}{Expans\343o}{part.2}% 14
+\BOOKMARK [1][-]{table.caption.8}{Redirecionamento de Entrada e Sa\355da}{part.2}% 15
+\BOOKMARK [1][-]{lstnumber.-8.1}{exerc\355cio}{part.2}% 16
+\BOOKMARK [0][-]{part.3}{III Customiza\347\343o do ambiente}{}% 17
+\BOOKMARK [1][-]{section*.10}{Introdu\347\343o}{part.3}% 18
+\BOOKMARK [1][-]{section*.10}{Vari\341veis e Aliases}{part.3}% 19
+\BOOKMARK [1][-]{section*.10}{Os arquivos de configura\347\343o e Run-Control}{part.3}% 20
+\BOOKMARK [1][-]{lstnumber.-12.1}{Inicializa\347\343o do Bash}{part.3}% 21
+\BOOKMARK [0][-]{part.4}{IV Shell e Linux sem Mouse}{}% 22
+\BOOKMARK [1][-]{section*.11}{Atalhos do Sistema}{part.4}% 23
+\BOOKMARK [1][-]{table.caption.12}{Uso do Sistema}{part.4}% 24
+\BOOKMARK [1][-]{figure.caption.13}{Terminal}{part.4}% 25
+\BOOKMARK [1][-]{figure.caption.13}{Editor de texto}{part.4}% 26
+\BOOKMARK [0][-]{part.5}{V Exerc\355cio Pr\341tico 1}{}% 27
+\BOOKMARK [1][-]{section*.14}{Exerc\355cio}{part.5}% 28
+\BOOKMARK [1][-]{lstnumber.-17.8}{Solu\347\343o}{part.5}% 29
+\BOOKMARK [2][-]{lstnumber.-18.10}{Eliminar ;}{lstnumber.-17.8}% 30
+\BOOKMARK [2][-]{lstnumber.-19.1}{Gerar locais.txt}{lstnumber.-17.8}% 31
+\BOOKMARK [2][-]{lstnumber.-20.1}{Preencher arquivos de locais}{lstnumber.-17.8}% 32
+\BOOKMARK [0][-]{part.6}{VI Exerc\355cio Pr\341tico 2}{}% 33
+\BOOKMARK [1][-]{section*.15}{Exerc\355cio}{part.6}% 34
+\BOOKMARK [1][-]{lstnumber.-22.7}{Solu\347\343o}{part.6}% 35
+\BOOKMARK [2][-]{section*.16}{Parte 1}{lstnumber.-22.7}% 36
+\BOOKMARK [2][-]{lstnumber.-23.12}{Parte 2}{lstnumber.-22.7}% 37
+\BOOKMARK [0][-]{part.7}{VII Exerc\355cio Pr\341tico 3}{}% 38
+\BOOKMARK [1][-]{section*.17}{Exerc\355cio}{part.7}% 39
+\BOOKMARK [1][-]{lstnumber.-25.11}{Solu\347\343o}{part.7}% 40
+\BOOKMARK [1][-]{figure.caption.19}{Conclus\343o}{part.7}% 41

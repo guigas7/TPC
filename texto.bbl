@@ -13,17 +13,29 @@ GNU (2018b).
 \newblock \url{https://www.gnu.org/gnu/manifesto.pt-br.html}.
 \newblock Acessado em 18-08-2018.
 
-\bibitem[Hexsel, 2018a]{roberto2}
+\bibitem[Hexsel, 2018a]{roberto3}
 Hexsel, R.~A. (2018a).
+\newblock Como computeiros ganham mais tempo com bash.
+\newblock \url{http://www.inf.ufpr.br/roberto/ci064/labBash-2.html}.
+\newblock Acessado em 27-08-2018.
+
+\bibitem[Hexsel, 2018b]{roberto2}
+Hexsel, R.~A. (2018b).
 \newblock Como computeiros ganham tempo com bash.
 \newblock \url{http://www.inf.ufpr.br/roberto/ci064/labBash-1.html}.
 \newblock Acessado em 18-08-2018.
 
-\bibitem[Hexsel, 2018b]{roberto1}
-Hexsel, R.~A. (2018b).
+\bibitem[Hexsel, 2018c]{roberto1}
+Hexsel, R.~A. (2018c).
 \newblock Unix para computeiros.
 \newblock \url{http://www.inf.ufpr.br/roberto/ci064/labUnix.html}.
 \newblock Acessado em 18-08-2018.
+
+\bibitem[openvim, 2018]{vimt}
+openvim (2018).
+\newblock Vim tutorial.
+\newblock \url{https://www.openvim.com}.
+\newblock Acessado em 31-10-2018.
 
 \bibitem[vim, 2018]{viman}
 vim (2018).
@@ -31,8 +43,14 @@ vim (2018).
 \newblock \url{http://vimdoc.sourceforge.net/htmldoc/options.html}.
 \newblock Acessado em 03-09-2018.
 
-\bibitem[Wikipédia, 2018]{interface}
-Wikipédia (2018).
+\bibitem[Wikipédia, 2018a]{regex}
+Wikipédia (2018a).
+\newblock Expressão regular.
+\newblock \url{https://pt.wikipedia.org/wiki/Express%C3%A3o_regular}.
+\newblock Acessado em 27-08-2018.
+
+\bibitem[Wikipédia, 2018b]{interface}
+Wikipédia (2018b).
 \newblock Interface (ciência da computação).
 \newblock
   \url{https://pt.wikipedia.org/wiki/Interface_(ci%C3%AAncia_da_computa%C3%A7%C3%A3o)}.
