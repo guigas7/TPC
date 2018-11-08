@@ -477,7 +477,7 @@
 	O uso do shell para realizar atividades repetitivas (ou com algum padrão definido) se provou ser bem mais eficiente que o sistema de apontar e clicar, usado como método principal de entrada de comandos na maioria das interfaces mais usadas atualmente. Apesar do mouse ser muito simples e intuitivo de usar, é comum que usuários mais experientes busquem modos mais rápidos de realizar as mesmas ações. Felizmente, é possível identificar padrões nos principais atalhos do teclado em diferentes interfaces, muitas interfaces, usam o mesmo atalho para ações similares, independente do sistema, e algumas vezes é possível inferir um comando pela inicial da ação a ser realizada.
 	
 	\section{Atalhos do Sistema}
-	Esse material se limita a focar no Linux Mint, mais especificamente com o ambiente Cinnamon, pois é uma distribuição extremamente fácil de usar para usuário iniciantes e é a distribuição mais acessível para calouros do curso de Ciência da Computação na UFPR. Os atalhos mais importantes do sistema para usuário do shell são atalhos de manipulação de janelas, pois a maneira mais eficiente de usar o shell, geralmente é usando mais de um shell ao mesmo tempo. Os atalhos da tabela \ref{table:1} são os principais atalhos do Linux Mint, com ambiente desktop Cinnamon:
+	Esse material se limita a focar no Linux Mint, mais especificamente com o ambiente Cinnamon, pois é uma distribuição extremamente fácil de usar para usuário iniciantes e é a distribuição mais acessível para calouros do curso de Ciência da Computação na UFPR. Os atalhos mais importantes do sistema para usuário do shell são atalhos de manipulação de janelas, pois a maneira mais eficiente de usar o shell, geralmente é usando mais de um shell ao mesmo tempo. Os atalhos da tabela \ref{table:5} são os principais atalhos do Linux Mint, com ambiente desktop Cinnamon:
 	
 	\pagebreak
 	
@@ -496,7 +496,7 @@
 			ctrl alt t & Abre um terminal \\ \hline
 		\end{tabular}
 		\caption{A tabela mostra a combinação das teclas, suas respectivas funções e interfaces onde podem ser utilizados}
-		\label{table:1}
+		\label{table:5}
 	\end{table}
 	
 	É importante notar que a criação de atalhos de teclado padrão geralmente é originada usando a inicial da palavra (em inglês) que descreve a função do atalho, por exemplo, em editores de texto, as funções de Negrito, Itálico e Sublinhado, se originam das palavras bold, italic e underline, e portanto seus atalhos são, respectivamente ctrl b, ctrl i e ctrl u. Em alguns editores, quando usados em português, existem dois atalhos para negrito, ctrl b e ctrl n, para servir tanto aos usuários que já usam editores que possuem esse padrão, quanto para usuário que tentam inferir o atalho pelo nome da funcionalidade em português.
@@ -523,6 +523,32 @@
 	
 	\section{Editor de texto}
 	O vim é um editor de texto para usuários de shell, em outras palavras, um editor que não possui uma interface gráfica e menus, porém, com atalhos, comandos e opções que permitem ao usuário configurar o ambiente e preferências além da edição de texto de forma eficiente. Assim como o bash, o vim não é intuitivo para usuários iniciantes, para isso, é recomendado um tutorial interativo \cite{vimt}. Além disso, o vim é configurável com um arquivo run command vimrc, e os comandos de configuração também podem ser inseridos durante a execução.
+	
+	\pagebreak
+	\part{Controle de Processos}
+	
+	Ao executar algum comando\footnote{Vários comandos com pipelines e redirecionamentos são agrupados no mesmo processo} no bash, um processo é iniciado em primeiro plano (\textit{foreground}), interrompendo a execução do bash e podendo ler a entrada do teclado. É possível iniciar um processo (\textit{job}) no background pelo bash, inserindo o caractere '\&' ao final da linha de comando. Quando o bash cria um \textit{job} em segundo plano, ele imprime uma linha contando o número de sequência do \textit{job} e o process id do último processo do pipeline.
+	
+	\section{Comandos de Controle de Processos}
+	Para facilitar o gerenciamento dos processos, o bash mantém o registro de um \textit{job} atual(último job interrompido em foreground ou último processo iniciado em background) e um \textbf{job} anterior.
+	
+	 Com o comando 'ctrl' 'z' na maioria dos terminais, o processo em primeiro plano é interrompido, liberando a leitura do teclado de volta ao bash. O comando 'fg' serve para executar um job em primeiro plano e o comando 'bg' para executar um job em segundo plano. O comando 'jobs' lista os jobs ativos. Ao finalizar um job em segundo plano, o bash imprime uma linha contendo o número de sequência do job e o comando com o qual ele foi invocado (para não interromper alguma execução em primeiro plano, essa impressão aguarda até que outra impressão seja realizada pelo bash).
+	 
+	 Os comandos 'fg' e 'bg' pressupõe o job atual quando não é passado nenhum parâmetro, mas é possível utilizar esses comandos em outros jobs com um jobspec. Um jobspec é uma referência a um job, ele começa com o caractere '\%' seguido do número de sequência do job, ou seguido do comando de invocação do job e é possível utilizar o caractere ? para utilizar uma substring do comando de invocação do job. \%+ é usado para se referir ao job atual e \%- para o job anterior.
+	 Exemplos:
+	 \begin{lstlisting}
+	 	fg %5
+	 	bg %vim
+	 	fg %?vi
+	 	fg %-
+	 \end{lstlisting}
+	
+	Também é possível enviar um sinal a um job com o comando kill. Uma lista completa de sinais pode ser obtida com o comando \texttt{\textbf{\textit{kill -l}}}. O sinal mais comum é o SIGKILL (9), que força o encerramento da execução. 
+	 
+	O manual do bash \cite{bashman} explica em detalhes o funcionameto do controle de processos do bash na seção 7.1 e na seção 7.2 detalha o funcionamento de comandos de controle de processos. A seção 12 do manual Shell Scripting \cite{learnl} apresenta o funcionamento de vários sinais utilizados no comandos kill com exemplos de uso e exercícios, além de mostrar como tratar de forma diferenciada os sinais recebidos em um script(traps). O comando kill recebe o tipo de sinal enviado como opção e o um jobspec ou process id como parâmetro.
+	
+	Para poder enviar sinais a 
+	
 	
 	\newpage
 	\part{Exercício Prático 1}
@@ -828,6 +854,7 @@
 	
 	\section{Conclusão}
 	Como esperado, o bash não possui um menu gráfico com botões e opções de configuração, ao invés disso, o usuário pode configurar o bash através de variáveis pré-definidas e opções e realizar tarefas através de comandos. Além disso, o bash scripting não consiste apenas de variáveis e estruturas de controle do bash, e sim de um conjunto de comandos que, fazendo uso da árvore de diretórios e de redirecionamentos permitem ao usuário a automatização de tarefas que seriam exaustivas e repetitivas com uma interface gráfica. Dessa forma é possível dizer que o Bash não apenas facilita ou agiliza o uso do sistema e sim que ele expande as possibilidades do usuário. Após a leitura desse Tutorial, é ideal que cada usuário monte seu próprio ambiente de acordo com as suas necessidades (terminal, atalhos, aliases, configurações de bashrc, sistema operacional, editor de texto, etc...).
+	
 	
 \bibliographystyle{apalike}
 \bibliography{artbib}
