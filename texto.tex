@@ -526,29 +526,35 @@
 	
 	\pagebreak
 	\part{Controle de Processos}
-	
 	Ao executar algum comando\footnote{Vários comandos com pipelines e redirecionamentos são agrupados no mesmo processo} no bash, um processo é iniciado em primeiro plano (\textit{foreground}), interrompendo a execução do bash e podendo ler a entrada do teclado. É possível iniciar um processo (\textit{job}) no background pelo bash, inserindo o caractere '\&' ao final da linha de comando. Quando o bash cria um \textit{job} em segundo plano, ele imprime uma linha contando o número de sequência do \textit{job} e o process id do último processo do pipeline.
 	
-	\section{Comandos de Controle de Processos}
-	Para facilitar o gerenciamento dos processos, o bash mantém o registro de um \textit{job} atual(último job interrompido em foreground ou último processo iniciado em background) e um \textbf{job} anterior.
+	Para facilitar o gerenciamento dos processos, o bash mantém o registro de um \textit{job} atual(último job interrompido em foreground ou último processo iniciado em background) e um \textbf{job} anterior
 	
-	 Com o comando 'ctrl' 'z' na maioria dos terminais, o processo em primeiro plano é interrompido, liberando a leitura do teclado de volta ao bash. O comando 'fg' serve para executar um job em primeiro plano e o comando 'bg' para executar um job em segundo plano. O comando 'jobs' lista os jobs ativos. Ao finalizar um job em segundo plano, o bash imprime uma linha contendo o número de sequência do job e o comando com o qual ele foi invocado (para não interromper alguma execução em primeiro plano, essa impressão aguarda até que outra impressão seja realizada pelo bash).
+	\section{Comandos de Controle de Processos}	
+	Com o comando 'ctrl' 'z' na maioria dos terminais, o processo em primeiro plano é interrompido, liberando a leitura do teclado de volta ao bash. O comando \texttt{\textbf{\textit{fg}}} serve para executar um job em primeiro plano e o comando \texttt{\textbf{\textit{bg}}} para executar um job em segundo plano. O comando 'jobs' lista os jobs ativos. Ao finalizar um job em segundo plano, o bash imprime uma linha contendo o número de sequência do job e o comando com o qual ele foi invocado (para não interromper alguma execução em primeiro plano, essa impressão aguarda até que outra impressão seja realizada pelo bash).
 	 
-	 Os comandos 'fg' e 'bg' pressupõe o job atual quando não é passado nenhum parâmetro, mas é possível utilizar esses comandos em outros jobs com um jobspec. Um jobspec é uma referência a um job, ele começa com o caractere '\%' seguido do número de sequência do job, ou seguido do comando de invocação do job e é possível utilizar o caractere ? para utilizar uma substring do comando de invocação do job. \%+ é usado para se referir ao job atual e \%- para o job anterior.
-	 Exemplos:
-	 \begin{lstlisting}
-	 	fg %5
-	 	bg %vim
-	 	fg %?vi
-	 	fg %-
-	 \end{lstlisting}
+	Os comandos 'fg' e 'bg' pressupõe o job atual quando não é passado nenhum parâmetro, mas é possível utilizar esses comandos em outros jobs com um jobspec. Um jobspec é uma referência a um job, ele começa com o caractere '\%' seguido do número de sequência do job, ou seguido do comando de invocação do job e é possível utilizar o caractere ? para utilizar uma substring do comando de invocação do job. \%+ é usado para se referir ao job atual e \%- para o job anterior.
+	Exemplos:
+	\begin{lstlisting}
+		fg %5
+		bg %vim
+		fg %?vi
+		fg %-
+	\end{lstlisting}
 	
-	Também é possível enviar um sinal a um job com o comando kill. Uma lista completa de sinais pode ser obtida com o comando \texttt{\textbf{\textit{kill -l}}}. O sinal mais comum é o SIGKILL (9), que força o encerramento da execução. 
+	Também é possível enviar um sinal a um job com o comando kill. O comando kill recebe o tipo de sinal enviado como opção e o um jobspec ou process id como parâmetro. Uma lista completa de sinais pode ser obtida com o comando \texttt{\textbf{\textit{kill -l}}}. O sinal mais comum é o SIGKILL (9), que força o encerramento da execução.
 	 
-	O manual do bash \cite{bashman} explica em detalhes o funcionameto do controle de processos do bash na seção 7.1 e na seção 7.2 detalha o funcionamento de comandos de controle de processos. A seção 12 do manual Shell Scripting \cite{learnl} apresenta o funcionamento de vários sinais utilizados no comandos kill com exemplos de uso e exercícios, além de mostrar como tratar de forma diferenciada os sinais recebidos em um script(traps). O comando kill recebe o tipo de sinal enviado como opção e o um jobspec ou process id como parâmetro.
+	O manual do bash \cite{bashman} explica em detalhes o funcionameto do controle de processos do bash na seção 7.1 e na seção 7.2 detalha o funcionamento de comandos de controle de processos. A seção 12 do manual Shell Scripting \cite{learnl} apresenta o funcionamento de vários sinais utilizados no comandos kill com exemplos de uso e exercícios, além de mostrar como tratar de forma diferenciada os sinais recebidos em um script(traps).
 	
-	Para poder enviar sinais a 
+	O comando kill permite o envio de sinais para todos os processos em execução na máquina, incluíndo os que não são jobs do shell em uso, através do process id. Uma maneira de buscar os processos em execução é o comando \texttt{\textbf{\textit{ps aux}}}. O comando \texttt{\textbf{\textit{ps}}} retorna uma lista com todos os processos em execução, aux são os 3 argumentos que servem para, respectivamente, exibir processos de todos os usuários, exibir o nome do usuário responsável pelo processo, e exibir processos que não foram executados pelo bash em que o ps. É possível exibir a árvore de processos com o comando ps usando o argumento f, ou para imprimir a árvore de uma forma mais legível, com o comando pstree. Isso pode ser útil para descobrir quais processos serão terminados ao finalizar um processo.
 	
+	A lista de processos e seus ids, além de outras informações é exibida com mais detalhes com o comando \texttt{\textbf{\textit{top}}}, ou \texttt{\textbf{\textit{htop}}}, sendo o segundo uma lista interativa, permitindo ao usuário filtrar, buscar, ordenar e até mesmo enviar sinais aos processos listados além de outras funções.
+	
+	Uma ferramenta que pode ser útil no uso diário é o comando \texttt{\textbf{\textit{fuser}}}\footnote{A opção -v é necessária para que sejam listados os comandos dos processos}, ele exibe os processos que fazem uso de algum arquivo ou diretório passado por argumento. Dessa forma, quando o usuário é impedido de apagar ou mover algum arquivo, ele pode encontrar os processos que podem estar causando o impedimento e terminar os processos\footnote{Cuidado ao finalizar processos em estado de gravação de dados, essa ação pode corromper arquivos}.
+	
+	Também é possível iniciar um processo e deixar que ele execute mesmo após o logout do usuário responsável com o comando \texttt{\textbf{\textit{nohup}}}. Com esse comando (e utilizando redirecionamento de entrada e saída), é possível executar operações longas permitindo que outros usuário utilizem o computador.
+	
+	Controle de processos é essencial para administradores de sistemas, mesmo assim, ainda é muito útil para um usuário comum. Muitos comandos mostrados possuem utilidades não citadas nesse material, para saber mais detalhes, utilize as páginas man.
 	
 	\newpage
 	\part{Exercício Prático 1}
